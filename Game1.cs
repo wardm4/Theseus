@@ -33,6 +33,9 @@ namespace Theseus
         private Texture2D wall2;
         private Texture2D wall3;
         private Texture2D _life;
+        private Texture2D life0;
+        private Texture2D life1;
+        private Texture2D life2;
         private Texture2D theseusLeft;
         private Texture2D theseusRight;
         private Texture2D theseusDead;
@@ -41,6 +44,7 @@ namespace Theseus
         private Texture2D spaceitem;
         private Texture2D titlescreen;
         private Texture2D losescreen;
+        private Texture2D winscreen;
         private IMap _map;
         private Player _player;
         private InputState _inputState;
@@ -48,6 +52,7 @@ namespace Theseus
         public int elapsedTime;
         private SoundEffect swordswipe;
         public int deadTime;
+        public int winTime;
 
         public Game1()
             : base()
@@ -90,6 +95,7 @@ namespace Theseus
         {
             elapsedTime = 0;
             deadTime = 0;
+            winTime = 0;
             _aggressiveEnemies.Clear();
 
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -102,7 +108,10 @@ namespace Theseus
             wall1 = this.Content.Load<Texture2D>("rock");
             wall2 = this.Content.Load<Texture2D>("rock2");
             wall3 = this.Content.Load<Texture2D>("rock3");
-            _life = this.Content.Load<Texture2D>("life");
+            life0 = this.Content.Load<Texture2D>("life0");
+            life1 = this.Content.Load<Texture2D>("life");
+            life2 = this.Content.Load<Texture2D>("life2");
+            _life = life1;
             theseusLeft = this.Content.Load<Texture2D>("theseusLeft");
             theseusRight = this.Content.Load<Texture2D>("theseusRight");
             theseusDead = this.Content.Load<Texture2D>("theseusDead");
@@ -111,6 +120,7 @@ namespace Theseus
             spaceitem = this.Content.Load<Texture2D>("spaceitem");
             titlescreen = this.Content.Load<Texture2D>("titlescreen");
             losescreen = this.Content.Load<Texture2D>("losescreen");
+            winscreen = this.Content.Load<Texture2D>("winscreen");
             Cell startingCell = GetRandomEmptyCell();
             Global.Camera.CenterOn(startingCell);
             _player = new Player
@@ -162,6 +172,10 @@ namespace Theseus
                     {
                         deadTime++;
                     }
+                    if (_aggressiveEnemies.ToArray().GetLength(0) == 0)
+                    {
+                        winTime++;
+                    }
                 }
                 if (Global.GameState == GameStates.EnemyTurn)
                 {
@@ -196,7 +210,8 @@ namespace Theseus
             if (_player.Health <= 0)
             {
                 _player.Sprite = theseusDead;
-                if (deadTime > 1)
+                _life = life0;
+                if (deadTime > 1 || winTime > 1)
                 {
                     UnloadContent();
                     Initialize();
@@ -274,6 +289,11 @@ namespace Theseus
                 if (deadTime >= 1)
                 {
                     spriteBatch.Draw(losescreen, Global.Camera.ScreenToWorld(new Vector2(0, 0)), null, null, null, 0.0f, Vector2.One, Color.White, SpriteEffects.None, 0.55f);
+                }
+
+                if (winTime > 0)
+                {
+                    spriteBatch.Draw(winscreen, Global.Camera.ScreenToWorld(new Vector2(0, 0)), null, null, null, 0.0f, Vector2.One, Color.White, SpriteEffects.None, 0.3f);
                 }
 
 

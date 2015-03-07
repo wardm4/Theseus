@@ -33,3 +33,6 @@ C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\spaceitem.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\titlescreen.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\theseusDead.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\losescreen.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\winscreen.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\life0.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\life2.png

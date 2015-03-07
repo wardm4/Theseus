@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="57744">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="58256">
       <assemblyIdentity name="Theseus" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>kFyPxEw69PVZ4BtK4e1uQoTiUVM=</dsig:DigestValue>
+        <dsig:DigestValue>7+a9/4sdrowfE2c6cCOwwAoggP8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -157,6 +157,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>tEtYcS/1SouXsgcVPomDOxDNeDo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\life0.png" size="1420">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>1Sv+34DBO/KxwCxyXeKTx+Y0Nrk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\life2.png" size="1681">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>Ox11TBKW8saOx73QMAoMXseoijA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\losescreen.png" size="902573">
@@ -283,6 +301,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>N/qAyZVFkkg+tdQula9apOEynFE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\winscreen.png" size="304311">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>mDg7Y3gSUtyVoNzJbD4aCEyIx2E=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Icon.ico" size="32038">
