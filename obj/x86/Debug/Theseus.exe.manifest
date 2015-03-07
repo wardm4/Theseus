@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="58256">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="57744">
       <assemblyIdentity name="Theseus" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>7+a9/4sdrowfE2c6cCOwwAoggP8=</dsig:DigestValue>
+        <dsig:DigestValue>DZzrIqLyOmBW5q9wp9y2xWzhaUY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -121,6 +121,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>XzTSZpgK4YeO6moLpSwDElSN5Q4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\fireanimated.png" size="10251">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>JDwzYcZIgW38eIabxGRm4py8uIM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\floor1.png" size="1467">

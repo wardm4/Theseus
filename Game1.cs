@@ -134,7 +134,7 @@ namespace Theseus
             };
             UpdatePlayerFieldOfView();
             Global.GameState = GameStates.PlayerTurn;
-            AddAggressiveEnemies(3);
+            AddAggressiveEnemies();
             Global.CombatManager = new CombatManager(_player, _aggressiveEnemies);
             swordswipe = this.Content.Load<SoundEffect>("sword1");
             Global.CombatManager.effect = swordswipe;
@@ -332,9 +332,10 @@ namespace Theseus
             }
         }
 
-        private void AddAggressiveEnemies(int numberOfEnemies)
+        private void AddAggressiveEnemies()
         {
-            for (int i = 0; i < numberOfEnemies; i++)
+            int numberOfRavens = Global.Random.Next(1,5);
+            for (int i = 0; i < numberOfRavens; i++)
             {
                 Cell enemyCell = GetRandomEmptyCell();
                 var pathFromAggressiveEnemy = new PathToPlayer(_player, _map, Content.Load<Texture2D>("white"));
@@ -347,6 +348,23 @@ namespace Theseus
                     Health = 1,
                     Damage = 1,
                     Name = "Raven"
+                };
+                _aggressiveEnemies.Add(enemy);
+            }
+            int numberOfFires = Global.Random.Next(1,5);
+            for (int i = 0; i < numberOfFires; i++)
+            {
+                Cell enemyCell = GetRandomEmptyCell();
+                var pathFromAggressiveEnemy = new PathToPlayer(_player, _map, Content.Load<Texture2D>("white"));
+                pathFromAggressiveEnemy.CreateFrom(enemyCell.X, enemyCell.Y);
+                Texture2D texture = Content.Load<Texture2D>("fireanimated");
+                var enemy = new AggressiveEnemy(texture, 3, 3, pathFromAggressiveEnemy, _map)
+                {
+                    X = enemyCell.X,
+                    Y = enemyCell.Y,
+                    Health = 1,
+                    Damage = 1,
+                    Name = "Fire"
                 };
                 _aggressiveEnemies.Add(enemy);
             }

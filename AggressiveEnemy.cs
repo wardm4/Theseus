@@ -43,7 +43,7 @@ namespace Theseus
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle((int)X * width, (int)Y * height, width, height);
 
-            spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White, 0f, Vector2.One, SpriteEffects.None, LayerDepth.Figures);
+            spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White, 0f, Vector2.One, SpriteEffects.None, LayerDepth.Enemies);
         }
 
         public void Animate()
