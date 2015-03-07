@@ -347,7 +347,8 @@ namespace Theseus
                     Y = enemyCell.Y,
                     Health = 1,
                     Damage = 1,
-                    Name = "Raven"
+                    Name = "Raven",
+                    isStunned = false
                 };
                 _aggressiveEnemies.Add(enemy);
             }
@@ -362,9 +363,10 @@ namespace Theseus
                 {
                     X = enemyCell.X,
                     Y = enemyCell.Y,
-                    Health = 1,
+                    Health = 2,
                     Damage = 1,
-                    Name = "Fire"
+                    Name = "Fire",
+                    isStunned = false
                 };
                 _aggressiveEnemies.Add(enemy);
             }

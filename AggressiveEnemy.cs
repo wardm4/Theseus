@@ -48,11 +48,24 @@ namespace Theseus
 
         public void Animate()
         {
-            if (count % 3 == 2)
-                currentFrame++;
-            count++;
-            if (currentFrame == totalFrames)
-                currentFrame = 0;
+            switch (Name)
+            {
+                case "Raven":
+                    if (count % 3 == 2)
+                        currentFrame++;
+                    count++;
+                    if (currentFrame == totalFrames)
+                        currentFrame = 0;
+                    break;
+
+                case "Fire":
+                    if (count % 10 == 9)
+                        currentFrame++;
+                    count++;
+                    if (currentFrame == totalFrames)
+                        currentFrame = 0;
+                    break;
+            }
         }
 
         public void Update()
@@ -66,16 +79,38 @@ namespace Theseus
             }
             if (_isAwareOfPlayer)
             {
-                _path.CreateFrom(X, Y);
-                if (Global.CombatManager.IsPlayerAt(_path.FirstCell.X, _path.FirstCell.Y))
+                switch (Name)
                 {
-                    Global.CombatManager.Attack(this,
-                        Global.CombatManager.FigureAt(_path.FirstCell.X, _path.FirstCell.Y));
-                }
-                else if (_path.cellList() != null)
-                {
-                    X = _path.FirstCell.X;
-                    Y = _path.FirstCell.Y;
+                    case "Raven":
+                         _path.CreateFrom(X, Y);
+                        if (Global.CombatManager.IsPlayerAt(_path.FirstCell.X, _path.FirstCell.Y) && !isStunned)
+                        {
+                            Global.CombatManager.Attack(this, Global.CombatManager.FigureAt(_path.FirstCell.X, _path.FirstCell.Y));
+                        }
+                        else if (_path.cellList() != null && !isStunned)
+                        {
+                            X = _path.FirstCell.X;
+                            Y = _path.FirstCell.Y;
+                        }
+                        break;
+
+                    case "Fire":
+                        int i = 1;
+                        while (i >= 0)
+                        {
+                            _path.CreateFrom(X, Y);
+                            if (Global.CombatManager.IsPlayerAt(_path.FirstCell.X, _path.FirstCell.Y) && !isStunned)
+                            {
+                                Global.CombatManager.Attack(this, Global.CombatManager.FigureAt(_path.FirstCell.X, _path.FirstCell.Y));
+                            }
+                            else if (_path.cellList() != null && !isStunned)
+                            {
+                                X = _path.FirstCell.X;
+                                Y = _path.FirstCell.Y;
+                            }
+                            i--;
+                        }
+                        break;
                 }
             }
         }

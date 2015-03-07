@@ -21,6 +21,7 @@ namespace Theseus
         public void Attack(Figure attacker, Figure defender)
         {
             defender.Health -= attacker.Damage;
+            defender.isStunned = true;
             if (defender.Health <= 0)
             {
                 if (defender is AggressiveEnemy)

@@ -14,5 +14,6 @@ namespace Theseus
         public int Health { get; set; }
         public int Damage { get; set; }
         public string Name { get; set; }
+        public bool isStunned { get; set; }
     }
 }
