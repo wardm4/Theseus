@@ -17,8 +17,8 @@ namespace Theseus
     {
         public static readonly IRandom Random = new DotNetRandom();
         public static GameStates GameState { get; set; }
-        public static readonly int MapWidth = 25;
-        public static readonly int MapHeight = 15;
+        public static readonly int MapWidth = 40;
+        public static readonly int MapHeight = 20;
         public static readonly int SpriteWidth = 64;
         public static readonly int SpriteHeight = 64;
         public static readonly Camera Camera = new Camera();

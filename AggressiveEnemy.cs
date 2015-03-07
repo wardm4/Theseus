@@ -72,7 +72,7 @@ namespace Theseus
                     Global.CombatManager.Attack(this,
                         Global.CombatManager.FigureAt(_path.FirstCell.X, _path.FirstCell.Y));
                 }
-                else
+                else if (_path.cellList() != null)
                 {
                     X = _path.FirstCell.X;
                     Y = _path.FirstCell.Y;

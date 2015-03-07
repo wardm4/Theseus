@@ -23,6 +23,7 @@ namespace Theseus
         {
             if (inputState.IsLeft(PlayerIndex.One))
             {
+
                 int tempX = X - 1;
                 if (map.IsWalkable(tempX, Y))
                 {
@@ -92,19 +93,5 @@ namespace Theseus
             return false;
         }
 
-        public void Initialize()
-        {
-
-        }
-
-        public void Update()
-        {
-
-        }
-
-        public void Draw()
-        {
-
-        }
     }
 }

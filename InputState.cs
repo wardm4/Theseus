@@ -240,7 +240,13 @@ namespace Theseus
         public bool IsSpace(PlayerIndex? controllingPlayer)
         {
             PlayerIndex playerIndex;
-            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex) || IsNewButtonPress(Buttons.A, controllingPlayer, out playerIndex);
+        }
+
+        public bool IsEnter(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+            return IsNewKeyPress(Keys.Enter, controllingPlayer, out playerIndex);
         }
 
         //public bool IsScrollLeft(PlayerIndex? controllingPlayer)
@@ -277,6 +283,13 @@ namespace Theseus
         {
             PlayerIndex playerIndex;
             return IsNewKeyPress(Keys.OemComma, controllingPlayer, out playerIndex);
+        }
+
+        public bool IsAction(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+
+            return IsNewKeyPress(Keys.X, controllingPlayer, out playerIndex) || IsNewButtonPress(Buttons.X, controllingPlayer, out playerIndex);
         }
     }
 }

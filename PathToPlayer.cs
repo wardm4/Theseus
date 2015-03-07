@@ -23,6 +23,7 @@ namespace Theseus
             _sprite = sprite;
             _pathFinder = new PathFinder(map);
         }
+
         public Cell FirstCell
         {
             get
@@ -30,11 +31,18 @@ namespace Theseus
                 return _cells.First();
             }
         }
+
         public void CreateFrom(int x, int y)
         {
             _cells = _pathFinder.ShortestPath(_map.GetCell(x, y),
                 _map.GetCell(_player.X, _player.Y));
         }
+
+        public IEnumerable<Cell> cellList()
+        {
+            return _cells;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             if (_cells != null && Global.GameState == GameStates.Debugging)

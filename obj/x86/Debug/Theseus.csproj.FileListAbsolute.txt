@@ -1,5 +1,3 @@
-C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\background3.png
-C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\floor4.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\life.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\ravenanimate.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\rock.png
@@ -24,3 +22,14 @@ C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Theseus.exe.manifest
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Theseus.application
 C:\Users\Matt\Dropbox\Theseus\Theseus\obj\x86\Debug\Theseus.exe.manifest
 C:\Users\Matt\Dropbox\Theseus\Theseus\obj\x86\Debug\Theseus.application
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\background.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\floor1.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\floor2.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\floor3.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\theseusLeft.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\theseusRight.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\weapon1.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\spaceitem.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\titlescreen.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\theseusDead.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\losescreen.png
