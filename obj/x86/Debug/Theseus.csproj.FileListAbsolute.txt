@@ -45,3 +45,4 @@ C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\level5.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\level6.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\level7.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\portal.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\elixir.png

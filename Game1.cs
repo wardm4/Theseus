@@ -44,6 +44,7 @@ namespace Theseus
         private Texture2D level5;
         private Texture2D level6;
         private Texture2D level7;
+        private Texture2D elixir;
         private Texture2D theseusLeft;
         private Texture2D theseusRight;
         private Texture2D theseusDead;
@@ -130,6 +131,7 @@ namespace Theseus
             level6 = this.Content.Load<Texture2D>("level6");
             level7 = this.Content.Load<Texture2D>("level7");
             _level = level1;
+            elixir = this.Content.Load<Texture2D>("elixir");
             theseusLeft = this.Content.Load<Texture2D>("theseusLeft");
             theseusRight = this.Content.Load<Texture2D>("theseusRight");
             theseusDead = this.Content.Load<Texture2D>("theseusDead");
@@ -229,7 +231,6 @@ namespace Theseus
                 }
             }
 
-            Global.Camera.HandleInput(_inputState, PlayerIndex.One);
             Global.Camera.CenterOn(currZone.Layout.GetCell(_player.X, _player.Y));
             _inputState.Update();
 
@@ -402,6 +403,7 @@ namespace Theseus
                 };
                 Global.EnemyList.Add(enemy);
             }
+
             int numberOfFires = Global.Random.Next(1,5);
             for (int i = 0; i < numberOfFires; i++)
             {
@@ -419,6 +421,11 @@ namespace Theseus
                     isStunned = false
                 };
                 Global.EnemyList.Add(enemy);
+            }
+
+            if (_player.Level > 1)
+            {
+
             }
         }
 
