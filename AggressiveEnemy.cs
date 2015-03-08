@@ -87,7 +87,7 @@ namespace Theseus
                         {
                             Global.CombatManager.Attack(this, Global.CombatManager.FigureAt(_path.FirstCell.X, _path.FirstCell.Y));
                         }
-                        else if (_path.cellList() != null && !isStunned)
+                        else if (_path.cellList() != null && !isStunned && !Global.CombatManager.IsEnemyAt(_path.FirstCell.X, _path.FirstCell.Y))
                         {
                             X = _path.FirstCell.X;
                             Y = _path.FirstCell.Y;
@@ -103,7 +103,7 @@ namespace Theseus
                             {
                                 Global.CombatManager.Attack(this, Global.CombatManager.FigureAt(_path.FirstCell.X, _path.FirstCell.Y));
                             }
-                            else if (_path.cellList() != null && !isStunned)
+                            else if (_path.cellList() != null && !isStunned && !Global.CombatManager.IsEnemyAt(_path.FirstCell.X, _path.FirstCell.Y))
                             {
                                 X = _path.FirstCell.X;
                                 Y = _path.FirstCell.Y;

@@ -110,7 +110,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>j3HrMb0K3P09nTUwec2b5Urx3II=</dsig:DigestValue>
+        <dsig:DigestValue>GATZvAugzEEir4Nz1SzHY/5cAVs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -123,13 +123,13 @@
       <dsig:DigestValue>XzTSZpgK4YeO6moLpSwDElSN5Q4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\fireanimated.png" size="10251">
+  <file name="Content\fireanimated.png" size="14079">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>JDwzYcZIgW38eIabxGRm4py8uIM=</dsig:DigestValue>
+      <dsig:DigestValue>A+mIUwdxb9q9rQdyPwzhTwqSpPQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\floor1.png" size="1467">

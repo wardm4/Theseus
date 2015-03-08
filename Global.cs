@@ -13,6 +13,7 @@ namespace Theseus
         EnemyTurn = 2,
         Debugging = 3
     }
+
     public class Global
     {
         public static readonly IRandom Random = new DotNetRandom();

@@ -203,21 +203,34 @@ namespace Theseus
             Global.Camera.HandleInput(_inputState, PlayerIndex.One);
             Global.Camera.CenterOn(_map.GetCell(_player.X, _player.Y));
             _inputState.Update();
+
             foreach (var enemy in _aggressiveEnemies)
             {
                 enemy.Animate();
             }
+
             if (_player.Health <= 0)
             {
                 _player.Sprite = theseusDead;
-                _life = life0;
-                if (deadTime > 1 || winTime > 1)
-                {
-                    UnloadContent();
-                    Initialize();
-                    LoadContent();
-                }
             }
+
+            if (winTime > 1 || deadTime > 1)
+            {
+                UnloadContent();
+                Initialize();
+                LoadContent();
+            }
+
+            switch (_player.Health)
+            {
+                case 1: _life = life1;
+                    break;
+                case 0: _life = life0;
+                    break;
+                case 2: _life = life2;
+                    break;
+            }
+
             base.Update(gameTime);
         }
 
