@@ -12,6 +12,7 @@ namespace Theseus
     public class Player : Figure
     {
         public Texture2D Sprite { get; set; }
+        public int Level { get; set; }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Sprite, new Vector2(X * Sprite.Width, Y * Sprite.Width),
@@ -23,7 +24,6 @@ namespace Theseus
         {
             if (inputState.IsLeft(PlayerIndex.One))
             {
-
                 int tempX = X - 1;
                 if (map.IsWalkable(tempX, Y))
                 {

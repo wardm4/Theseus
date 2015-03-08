@@ -37,3 +37,4 @@ C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\winscreen.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\life0.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\life2.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\fireanimated.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\bush.png

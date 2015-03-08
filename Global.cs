@@ -24,5 +24,6 @@ namespace Theseus
         public static readonly int SpriteHeight = 64;
         public static readonly Camera Camera = new Camera();
         public static CombatManager CombatManager;
+        public static List<AggressiveEnemy> EnemyList { get; set; }
     }
 }

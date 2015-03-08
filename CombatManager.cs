@@ -9,26 +9,24 @@ namespace Theseus
     public class CombatManager
     {
         private readonly Player _player;
-        private readonly List<AggressiveEnemy> _aggressiveEnemies;
         public SoundEffect effect { get; set; }
 
-        public CombatManager( Player player, List<AggressiveEnemy> aggressiveEnemies) 
+        public CombatManager( Player player) 
         {
             _player = player;
-            _aggressiveEnemies = aggressiveEnemies;
         }
 
         public void Attack(Figure attacker, Figure defender)
         {
             defender.Health -= attacker.Damage;
             defender.isStunned = true;
+            effect.Play(0.1f, 0.0f, 0.0f);
             if (defender.Health <= 0)
             {
                 if (defender is AggressiveEnemy)
                 {
                     var enemy = defender as AggressiveEnemy;
-                    effect.Play(0.1f, 0.0f, 0.0f);
-                    _aggressiveEnemies.Remove(enemy);
+                    Global.EnemyList.Remove(enemy);
                 }
             }
         }
@@ -49,7 +47,7 @@ namespace Theseus
 
         public AggressiveEnemy EnemyAt(int x, int y)
         {
-            foreach (var enemy in _aggressiveEnemies)
+            foreach (var enemy in Global.EnemyList)
             {
                 if (enemy.X == x && enemy.Y == y)
                 {

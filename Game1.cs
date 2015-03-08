@@ -45,14 +45,15 @@ namespace Theseus
         private Texture2D titlescreen;
         private Texture2D losescreen;
         private Texture2D winscreen;
-        private IMap _map;
+        private Texture2D bush;
         private Player _player;
         private InputState _inputState;
-        private List<AggressiveEnemy> _aggressiveEnemies = new List<AggressiveEnemy>();
         public int elapsedTime;
         private SoundEffect swordswipe;
         public int deadTime;
         public int winTime;
+        private Zone currZone;
+        private bool isMinotaurAlive;
 
         public Game1()
             : base()
@@ -60,6 +61,7 @@ namespace Theseus
             graphics = new GraphicsDeviceManager(this);
             this.Window.AllowUserResizing = false;
             Content.RootDirectory = "Content";
+            Global.EnemyList = new List<AggressiveEnemy>();
         }
 
         /// <summary>
@@ -76,12 +78,12 @@ namespace Theseus
              */
 
             _inputState = new InputState();
-            IMapCreationStrategy<Map> mapCreationStrategy = new RandomRoomsMapCreationStrategy<Map>(Global.MapWidth, Global.MapHeight, 50, 7, 3);
-            _map = Map.Create(mapCreationStrategy);
             Global.Camera.ViewportWidth = graphics.GraphicsDevice.Viewport.Width;
             Global.Camera.ViewportHeight = graphics.GraphicsDevice.Viewport.Height;
             graphics.PreferredBackBufferWidth = 960;
             graphics.PreferredBackBufferHeight = 545;
+            currZone = new Zone(0);
+            isMinotaurAlive = true;
 
             base.Initialize();
         }
@@ -96,7 +98,7 @@ namespace Theseus
             elapsedTime = 0;
             deadTime = 0;
             winTime = 0;
-            _aggressiveEnemies.Clear();
+            Global.EnemyList.Clear();
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -121,7 +123,8 @@ namespace Theseus
             titlescreen = this.Content.Load<Texture2D>("titlescreen");
             losescreen = this.Content.Load<Texture2D>("losescreen");
             winscreen = this.Content.Load<Texture2D>("winscreen");
-            Cell startingCell = GetRandomEmptyCell();
+            bush = this.Content.Load<Texture2D>("bush");
+            Cell startingCell = currZone.GetRandomEmptyCell();
             Global.Camera.CenterOn(startingCell);
             _player = new Player
             {
@@ -130,12 +133,13 @@ namespace Theseus
                 Sprite = theseusLeft,
                 Health = 1,
                 Damage = 1,
+                Level = 1,
                 Name = "Hilby"
             };
+            AddAggressiveEnemies(currZone);
             UpdatePlayerFieldOfView();
             Global.GameState = GameStates.PlayerTurn;
-            AddAggressiveEnemies();
-            Global.CombatManager = new CombatManager(_player, _aggressiveEnemies);
+            Global.CombatManager = new CombatManager(_player);
             swordswipe = this.Content.Load<SoundEffect>("sword1");
             Global.CombatManager.effect = swordswipe;
         }
@@ -162,9 +166,8 @@ namespace Theseus
             }
             else
             {
-                if ((Global.GameState == GameStates.PlayerTurn && _player.HandleInput(_inputState, _map)) || _inputState.IsAction(PlayerIndex.One))
+                if ((Global.GameState == GameStates.PlayerTurn && _player.HandleInput(_inputState, currZone.Layout)) || _inputState.IsAction(PlayerIndex.One))
                 {
-                    Console.WriteLine(elapsedTime);
                     UpdatePlayerFieldOfView();
                     Global.GameState = GameStates.EnemyTurn;
                     elapsedTime++;
@@ -172,14 +175,14 @@ namespace Theseus
                     {
                         deadTime++;
                     }
-                    if (_aggressiveEnemies.ToArray().GetLength(0) == 0)
+                    if (!isMinotaurAlive)
                     {
                         winTime++;
                     }
                 }
                 if (Global.GameState == GameStates.EnemyTurn)
                 {
-                    foreach (var enemy in _aggressiveEnemies)
+                    foreach (var enemy in Global.EnemyList)
                     {
                         enemy.Update();
                     }
@@ -194,17 +197,25 @@ namespace Theseus
                 {
                     _player.Sprite = theseusRight;
                 }
-                if (_inputState.IsEnter(PlayerIndex.One))
+                if (Global.GameState == GameStates.PlayerTurn && _inputState.IsAction(PlayerIndex.One) && _player.X == currZone.Exit.X && _player.Y == currZone.Exit.Y)
                 {
-                    Global.GameState = GameStates.Debugging;
+                    Global.EnemyList.Clear();
+                    currZone = new Zone(currZone.ID);
+                    Cell newStart = currZone.GetRandomEmptyCell();
+                    _player.X = newStart.X;
+                    _player.Y = newStart.Y;
+                    Global.GameState = GameStates.EnemyTurn;
+                    AddAggressiveEnemies(currZone);
+                    elapsedTime++;
+                    UpdatePlayerFieldOfView();
                 }
             }
 
             Global.Camera.HandleInput(_inputState, PlayerIndex.One);
-            Global.Camera.CenterOn(_map.GetCell(_player.X, _player.Y));
+            Global.Camera.CenterOn(currZone.Layout.GetCell(_player.X, _player.Y));
             _inputState.Update();
 
-            foreach (var enemy in _aggressiveEnemies)
+            foreach (var enemy in Global.EnemyList)
             {
                 enemy.Animate();
             }
@@ -257,26 +268,30 @@ namespace Theseus
             {
                 spriteBatch.Draw(_background, new Vector2(0, 0), null, null, null, 0.0f, Vector2.One, Color.White, SpriteEffects.None, 1);
 
-                foreach (Cell cell in _map.GetAllCells())
+                foreach (Cell cell in currZone.Layout.GetAllCells())
                 {
-                    foreach (var enemy in _aggressiveEnemies)
+                    foreach (var enemy in Global.EnemyList)
                     {
-                        if (Global.GameState == GameStates.Debugging
-                            || _map.IsInFov(enemy.X, enemy.Y))
+                        if (currZone.Layout.IsInFov(enemy.X, enemy.Y))
                         {
                             enemy.Draw(spriteBatch);
                         }
                     }
-                    if (!cell.IsExplored && Global.GameState != GameStates.Debugging)
+                    if (!cell.IsExplored)
                     {
                         continue;
                     }
                     Color tint = Color.White;
-                    if (!cell.IsInFov && Global.GameState != GameStates.Debugging)
+                    if (!cell.IsInFov)
                     {
                         tint = Color.Gray;
                     }
                     var position = new Vector2(cell.X * Global.SpriteWidth, cell.Y * Global.SpriteHeight);
+                    if (cell.X == currZone.Exit.X && cell.Y == currZone.Exit.Y)
+                    {
+                        spriteBatch.Draw(bush, position, null, null, null, 0.0f, Vector2.One, tint, SpriteEffects.None, 0.7f);
+                    }
+
                     if (cell.IsWalkable)
                     {
                         if (cell.X % 3 == 0)
@@ -320,41 +335,29 @@ namespace Theseus
             base.Draw(gameTime);
         }
 
-        private Cell GetRandomEmptyCell()
-        {
-            while (true)
-            {
-                int x = Global.Random.Next(24);
-                int y = Global.Random.Next(14);
-                if (_map.IsWalkable(x, y))
-                {
-                    return _map.GetCell(x, y);
-                }
-            }
-        }
-
         private void UpdatePlayerFieldOfView()
         {
-            _map.ComputeFov(_player.X, _player.Y, 15, true);
-            foreach (Cell cell in _map.GetAllCells())
+            currZone.Layout.ComputeFov(_player.X, _player.Y, 15, true);
+            foreach (Cell cell in currZone.Layout.GetAllCells())
             {
-                if (_map.IsInFov(cell.X, cell.Y))
+                if (currZone.Layout.IsInFov(cell.X, cell.Y))
                 {
-                    _map.SetCellProperties(cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true);
+                    currZone.Layout.SetCellProperties(cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true);
                 }
             }
         }
 
-        private void AddAggressiveEnemies()
+        private void AddAggressiveEnemies(Zone zone)
         {
             int numberOfRavens = Global.Random.Next(1,5);
             for (int i = 0; i < numberOfRavens; i++)
             {
-                Cell enemyCell = GetRandomEmptyCell();
-                var pathFromAggressiveEnemy = new PathToPlayer(_player, _map, Content.Load<Texture2D>("white"));
+                //Cell enemyCell = zone.GetRandomEmptyCell();
+                Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
+                var pathFromAggressiveEnemy = new PathToPlayer(_player, currZone.Layout, Content.Load<Texture2D>("white"));
                 pathFromAggressiveEnemy.CreateFrom(enemyCell.X, enemyCell.Y);
                 Texture2D texture = Content.Load<Texture2D>("ravenanimate");
-                var enemy = new AggressiveEnemy(texture, 3, 3, pathFromAggressiveEnemy, _map)
+                var enemy = new AggressiveEnemy(texture, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
                 {
                     X = enemyCell.X,
                     Y = enemyCell.Y,
@@ -363,16 +366,17 @@ namespace Theseus
                     Name = "Raven",
                     isStunned = false
                 };
-                _aggressiveEnemies.Add(enemy);
+                Global.EnemyList.Add(enemy);
             }
             int numberOfFires = Global.Random.Next(1,5);
             for (int i = 0; i < numberOfFires; i++)
             {
-                Cell enemyCell = GetRandomEmptyCell();
-                var pathFromAggressiveEnemy = new PathToPlayer(_player, _map, Content.Load<Texture2D>("white"));
+                //Cell enemyCell = zone.GetRandomEmptyCell();
+                Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
+                var pathFromAggressiveEnemy = new PathToPlayer(_player, currZone.Layout, Content.Load<Texture2D>("white"));
                 pathFromAggressiveEnemy.CreateFrom(enemyCell.X, enemyCell.Y);
                 Texture2D texture = Content.Load<Texture2D>("fireanimated");
-                var enemy = new AggressiveEnemy(texture, 3, 3, pathFromAggressiveEnemy, _map)
+                var enemy = new AggressiveEnemy(texture, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
                 {
                     X = enemyCell.X,
                     Y = enemyCell.Y,
@@ -381,7 +385,7 @@ namespace Theseus
                     Name = "Fire",
                     isStunned = false
                 };
-                _aggressiveEnemies.Add(enemy);
+                Global.EnemyList.Add(enemy);
             }
         }
     }
