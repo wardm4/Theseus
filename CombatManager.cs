@@ -26,6 +26,15 @@ namespace Theseus
                 if (defender is AggressiveEnemy)
                 {
                     var enemy = defender as AggressiveEnemy;
+                    switch (enemy.Name)
+                    {
+                        case "Raven":
+                            Global.XPTally += 1;
+                            break;
+                        case "Fire":
+                            Global.XPTally += 2;
+                            break;
+                    }
                     Global.EnemyList.Remove(enemy);
                 }
             }

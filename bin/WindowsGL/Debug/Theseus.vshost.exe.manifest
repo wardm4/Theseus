@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="60304">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="61328">
       <assemblyIdentity name="Theseus" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>x6DhulMdSkZHs1xTDp4IJoWibOg=</dsig:DigestValue>
+        <dsig:DigestValue>7CQMJDkT1TS3WR3lHG6xDklvDtY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -121,15 +121,6 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>XzTSZpgK4YeO6moLpSwDElSN5Q4=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Content\bush.png" size="10669">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>ZKquJvf8Ngx3+7uHgFYkP2wmgLg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\fireanimated.png" size="14079">
@@ -168,6 +159,69 @@
       <dsig:DigestValue>+KJSXhckU0fmCOzFgZMAZ322i08=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="Content\level1.png" size="1727">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>3AaFb4TqV7w7C3XN9uuy1MQtRdc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\level2.png" size="1814">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>dQCRpb/4drVnyCvlsV5CJqQK1mI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\level3.png" size="1807">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>AIMmznVjX38+SoQgvVPeOAg+LKI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\level4.png" size="1794">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>AFBqhcfIIxd6UuEKGW5laEfcslQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\level5.png" size="1788">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>/70wMa812YwUnGHAwgjE30s343U=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\level6.png" size="1824">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>EDphomUlv4YzI0uXw41u//0f/a0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\level7.png" size="1779">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>lcngl4zbodMP7Jva4T8rWhemyok=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Content\life.png" size="1614">
     <hash>
       <dsig:Transforms>
@@ -202,6 +256,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>y69SRDoFDyfJJMPz7G7YFj4ehIs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\portal.png" size="1631">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>FFdgVm6q8weUJMhXE1jE8bYD4No=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\ravenanimate.png" size="5446">

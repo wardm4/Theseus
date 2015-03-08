@@ -36,6 +36,14 @@ namespace Theseus
         private Texture2D life0;
         private Texture2D life1;
         private Texture2D life2;
+        private Texture2D _level;
+        private Texture2D level1;
+        private Texture2D level2;
+        private Texture2D level3;
+        private Texture2D level4;
+        private Texture2D level5;
+        private Texture2D level6;
+        private Texture2D level7;
         private Texture2D theseusLeft;
         private Texture2D theseusRight;
         private Texture2D theseusDead;
@@ -45,7 +53,7 @@ namespace Theseus
         private Texture2D titlescreen;
         private Texture2D losescreen;
         private Texture2D winscreen;
-        private Texture2D bush;
+        private Texture2D portal;
         private Player _player;
         private InputState _inputState;
         public int elapsedTime;
@@ -114,6 +122,14 @@ namespace Theseus
             life1 = this.Content.Load<Texture2D>("life");
             life2 = this.Content.Load<Texture2D>("life2");
             _life = life1;
+            level1 = this.Content.Load<Texture2D>("level1");
+            level2 = this.Content.Load<Texture2D>("level2");
+            level3 = this.Content.Load<Texture2D>("level3");
+            level4 = this.Content.Load<Texture2D>("level4");
+            level5 = this.Content.Load<Texture2D>("level5");
+            level6 = this.Content.Load<Texture2D>("level6");
+            level7 = this.Content.Load<Texture2D>("level7");
+            _level = level1;
             theseusLeft = this.Content.Load<Texture2D>("theseusLeft");
             theseusRight = this.Content.Load<Texture2D>("theseusRight");
             theseusDead = this.Content.Load<Texture2D>("theseusDead");
@@ -123,7 +139,7 @@ namespace Theseus
             titlescreen = this.Content.Load<Texture2D>("titlescreen");
             losescreen = this.Content.Load<Texture2D>("losescreen");
             winscreen = this.Content.Load<Texture2D>("winscreen");
-            bush = this.Content.Load<Texture2D>("bush");
+            portal = this.Content.Load<Texture2D>("portal");
             Cell startingCell = currZone.GetRandomEmptyCell();
             Global.Camera.CenterOn(startingCell);
             _player = new Player
@@ -134,6 +150,7 @@ namespace Theseus
                 Health = 1,
                 Damage = 1,
                 Level = 1,
+                XP = 0,
                 Name = "Hilby"
             };
             AddAggressiveEnemies(currZone);
@@ -160,6 +177,7 @@ namespace Theseus
 
         protected override void Update(GameTime gameTime)
         {
+            Global.XPTally = 0;
             if (_inputState.IsExitGame(PlayerIndex.One))
             {
                 Exit();
@@ -242,6 +260,25 @@ namespace Theseus
                     break;
             }
 
+            switch (_player.Level)
+            {
+                case 1: _level = level1;
+                    break;
+                case 2: _level = level2;
+                    break;
+                case 3: _level = level3;
+                    break;
+                case 4: _level = level4;
+                    break;
+                case 5: _level = level5;
+                    break;
+                case 6: _level = level6;
+                    break;
+                case 7: _level = level7;
+                    break;
+            }
+
+            IterateXP(Global.XPTally);
             base.Update(gameTime);
         }
 
@@ -254,10 +291,7 @@ namespace Theseus
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            // TODO: Add your drawing code here
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend,
-                null, null, null, null, Global.Camera.TranslationMatrix);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.Camera.TranslationMatrix);
 
             if (elapsedTime == 0)
             {
@@ -289,7 +323,7 @@ namespace Theseus
                     var position = new Vector2(cell.X * Global.SpriteWidth, cell.Y * Global.SpriteHeight);
                     if (cell.X == currZone.Exit.X && cell.Y == currZone.Exit.Y)
                     {
-                        spriteBatch.Draw(bush, position, null, null, null, 0.0f, Vector2.One, tint, SpriteEffects.None, 0.7f);
+                        spriteBatch.Draw(portal, position, null, null, null, 0.0f, Vector2.One, tint, SpriteEffects.None, 0.7f);
                     }
 
                     if (cell.IsWalkable)
@@ -329,6 +363,7 @@ namespace Theseus
                 spriteBatch.Draw(_life, Global.Camera.ScreenToWorld(new Vector2(0, 0)), null, null, null, 0.0f, Vector2.One, Color.White, SpriteEffects.None, 0);
                 spriteBatch.Draw(_weapon, Global.Camera.ScreenToWorld(new Vector2(96, 0)), null, null, null, 0.0f, Vector2.One, Color.White, SpriteEffects.None, 0);
                 spriteBatch.Draw(spaceitem, Global.Camera.ScreenToWorld(new Vector2(160, 0)), null, null, null, 0.0f, Vector2.One, Color.White, SpriteEffects.None, 0);
+                spriteBatch.Draw(_level, Global.Camera.ScreenToWorld(new Vector2(832, 0)), null, null, null, 0.0f, Vector2.One, Color.White, SpriteEffects.None, 0);
             }
             spriteBatch.End();
 
@@ -352,7 +387,6 @@ namespace Theseus
             int numberOfRavens = Global.Random.Next(1,5);
             for (int i = 0; i < numberOfRavens; i++)
             {
-                //Cell enemyCell = zone.GetRandomEmptyCell();
                 Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
                 var pathFromAggressiveEnemy = new PathToPlayer(_player, currZone.Layout, Content.Load<Texture2D>("white"));
                 pathFromAggressiveEnemy.CreateFrom(enemyCell.X, enemyCell.Y);
@@ -371,7 +405,6 @@ namespace Theseus
             int numberOfFires = Global.Random.Next(1,5);
             for (int i = 0; i < numberOfFires; i++)
             {
-                //Cell enemyCell = zone.GetRandomEmptyCell();
                 Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
                 var pathFromAggressiveEnemy = new PathToPlayer(_player, currZone.Layout, Content.Load<Texture2D>("white"));
                 pathFromAggressiveEnemy.CreateFrom(enemyCell.X, enemyCell.Y);
@@ -386,6 +419,25 @@ namespace Theseus
                     isStunned = false
                 };
                 Global.EnemyList.Add(enemy);
+            }
+        }
+
+        private void IterateXP(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                _player.XP++;
+                switch (_player.XP)
+                {
+                    case 8:
+                        _player.Level = 2;
+                        _player.Damage = 2;
+                        break;
+                    case 15:
+                        _player.Level = 3;
+                        _player.Damage = 3;
+                        break;
+                }
             }
         }
     }

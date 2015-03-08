@@ -25,5 +25,6 @@ namespace Theseus
         public static readonly Camera Camera = new Camera();
         public static CombatManager CombatManager;
         public static List<AggressiveEnemy> EnemyList { get; set; }
+        public static int XPTally { get; set; }
     }
 }
