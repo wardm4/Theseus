@@ -21,7 +21,7 @@ namespace Theseus
             IMapCreationStrategy<Map> mapCreationStrategy = new RandomRoomsMapCreationStrategy<Map>(Global.MapWidth, Global.MapHeight, 50, 7, 3);
             Layout = Map.Create(mapCreationStrategy);
             Exit = GetRandomEmptyCell();
-            Item = "Mjolnir";
+            Item = "None";
             ItemLocation = GetRandomEmptyCell();
         }
 

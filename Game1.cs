@@ -12,6 +12,7 @@ using RogueSharp.DiceNotation;
 using RogueSharp.Random;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 #endregion
 
 namespace Theseus
@@ -197,7 +198,7 @@ namespace Theseus
                 Name = "Hilby"
             };
             AddAggressiveEnemies(currZone);
-            //AddItem(currZone);
+            AddItem(currZone);
             UpdatePlayerFieldOfView();
             Global.GameState = GameStates.PlayerTurn;
             Global.CombatManager = new CombatManager(_player);
@@ -299,6 +300,10 @@ namespace Theseus
 
             if (winTime > 1 || deadTime > 1)
             {
+                Stopwatch timer = Stopwatch.StartNew();
+                while (timer.ElapsedMilliseconds < 500)
+                {
+                }
                 UnloadContent();
                 Initialize();
                 LoadContent();
