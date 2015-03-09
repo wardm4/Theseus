@@ -63,7 +63,7 @@ namespace Theseus
         private Texture2D theseusRight;
         private Texture2D theseusDead;
         private Texture2D mjolnirLeft;
-        private Texture2D mjolnirRight;
+        public Texture2D mjolnirRight;
 
         private Texture2D _background;
         private Texture2D titlescreen;
@@ -128,6 +128,7 @@ namespace Theseus
             Global.ItemList.Clear();
             Global.ItemList.Add("Elixir");
             Global.ItemList.Add("Pandora");
+            Global.ItemList.Add("Mjolnir");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -191,6 +192,8 @@ namespace Theseus
                 XP = 0,
                 Item = "None",
                 Weapon = "Sword",
+                Multiplier = 1,
+                isLeft = false,
                 Name = "Hilby"
             };
             AddAggressiveEnemies(currZone);
@@ -614,9 +617,13 @@ namespace Theseus
 
             switch (_player.Weapon)
             {
-                case "Sword": _weapon = equippedSword;
+                case "Sword": 
+                    _weapon = equippedSword;
+                    _player.Multiplier = 1;
                     break;
-                case "Mjolnir": _weapon = equippedMjolnir;
+                case "Mjolnir": 
+                    _weapon = equippedMjolnir;
+                    _player.Multiplier = 2;
                     break;
             }
         }

@@ -18,7 +18,15 @@ namespace Theseus
 
         public void Attack(Figure attacker, Figure defender)
         {
-            defender.Health -= attacker.Damage;
+            if (attacker is Player)
+            {
+                var me = attacker as Player;
+                defender.Health -= (me.Damage) * (me.Multiplier);
+            }
+            else
+            {
+                defender.Health -= attacker.Damage;
+            }
             defender.isStunned = true;
             //effect.Play(0.1f, 0.0f, 0.0f);
             if (defender.Health <= 0)

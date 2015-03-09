@@ -16,6 +16,8 @@ namespace Theseus
         public int XP { get; set; }
         public string Item { get; set; }
         public string Weapon { get; set; }
+        public int Multiplier { get; set; }
+        public bool isLeft { get; set; }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -29,7 +31,7 @@ namespace Theseus
             if (inputState.IsLeft(PlayerIndex.One))
             {
                 int tempX = X - 1;
-                if (map.IsWalkable(tempX, Y))
+                if (map.IsWalkable(tempX, Y) && (isLeft || Weapon == "Sword"))
                 {
                     var enemy = Global.CombatManager.EnemyAt(tempX, Y);
                     if (enemy == null)
@@ -40,13 +42,19 @@ namespace Theseus
                     {
                         Global.CombatManager.Attack(this, enemy);
                     }
+                    isLeft = true;
+                    return true;
+                }
+                else
+                {
+                    isLeft = true;
                     return true;
                 }
             }
             else if (inputState.IsRight(PlayerIndex.One))
             {
                 int tempX = X + 1;
-                if (map.IsWalkable(tempX, Y))
+                if (map.IsWalkable(tempX, Y) && (!isLeft || Weapon == "Sword"))
                 {
                     var enemy = Global.CombatManager.EnemyAt(tempX, Y);
                     if (enemy == null)
@@ -57,6 +65,12 @@ namespace Theseus
                     {
                         Global.CombatManager.Attack(this, enemy);
                     }
+                    isLeft = false;
+                    return true;
+                }
+                else
+                {
+                    isLeft = false;
                     return true;
                 }
             }
