@@ -9,7 +9,7 @@ namespace Theseus
     public class CombatManager
     {
         private readonly Player _player;
-        public SoundEffect effect { get; set; }
+        //public SoundEffect effect { get; set; }
 
         public CombatManager( Player player) 
         {
@@ -20,7 +20,7 @@ namespace Theseus
         {
             defender.Health -= attacker.Damage;
             defender.isStunned = true;
-            effect.Play(0.1f, 0.0f, 0.0f);
+            //effect.Play(0.1f, 0.0f, 0.0f);
             if (defender.Health <= 0)
             {
                 if (defender is AggressiveEnemy)
@@ -36,6 +36,7 @@ namespace Theseus
                             break;
                     }
                     Global.EnemyList.Remove(enemy);
+                    Global.EnemyList.TrimExcess();
                 }
             }
         }

@@ -26,5 +26,6 @@ namespace Theseus
         public static CombatManager CombatManager;
         public static List<AggressiveEnemy> EnemyList { get; set; }
         public static int XPTally { get; set; }
+        public static List<string> ItemList { get; set; }
     }
 }

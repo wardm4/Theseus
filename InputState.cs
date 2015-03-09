@@ -291,5 +291,11 @@ namespace Theseus
 
             return IsNewKeyPress(Keys.X, controllingPlayer, out playerIndex) || IsNewButtonPress(Buttons.X, controllingPlayer, out playerIndex);
         }
+
+        public bool IsItemUse(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex);
+        }
     }
 }

@@ -14,6 +14,9 @@ namespace Theseus
         public Texture2D Sprite { get; set; }
         public int Level { get; set; }
         public int XP { get; set; }
+        public string Item { get; set; }
+        public string Weapon { get; set; }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Sprite, new Vector2(X * Sprite.Width, Y * Sprite.Width),

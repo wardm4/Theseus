@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RogueSharp;
+using RogueSharp.DiceNotation;
 
 namespace Theseus
 {
     public class Zone
     {
         public Map Layout {get; set;}
-        //public Item Item { get; set; }
+        public string Item { get; set; }
         public int ID { get; set; }
         public Cell Exit { get; set; }
+        public Cell ItemLocation { get; set; }
 
         public Zone(int currID)
         {
@@ -19,6 +21,8 @@ namespace Theseus
             IMapCreationStrategy<Map> mapCreationStrategy = new RandomRoomsMapCreationStrategy<Map>(Global.MapWidth, Global.MapHeight, 50, 7, 3);
             Layout = Map.Create(mapCreationStrategy);
             Exit = GetRandomEmptyCell();
+            Item = "Mjolnir";
+            ItemLocation = GetRandomEmptyCell();
         }
 
         public Cell GetRandomEmptyCell()
@@ -57,12 +61,12 @@ namespace Theseus
             bool legit = true;
             foreach (var enemy in Global.EnemyList)
             {
-                if (Distance(x, y, enemy.X, enemy.Y) <= 2)
+                if (Distance(x, y, enemy.X, enemy.Y) <= 4)
                 {
                     legit = false;
                 }
             }
-            if (Distance(x, y, playerX, playerY) <= 2)
+            if (Distance(x, y, playerX, playerY) <= 4)
             {
                 legit = false;
             }
