@@ -17,7 +17,8 @@ namespace Theseus
 
         public Zone(int currID)
         {
-            ID = currID++;
+            currID++;
+            ID = currID;
             IMapCreationStrategy<Map> mapCreationStrategy = new RandomRoomsMapCreationStrategy<Map>(Global.MapWidth, Global.MapHeight, 50, 7, 3);
             Layout = Map.Create(mapCreationStrategy);
             Exit = GetRandomEmptyCell();
