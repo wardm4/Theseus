@@ -168,7 +168,7 @@ namespace Theseus
             mjolnirLeft = this.Content.Load<Texture2D>("mjolnirLeft");
             mjolnirRight = this.Content.Load<Texture2D>("mjolnirRight");
 
-            _background = this.Content.Load<Texture2D>("background2");
+            _background = this.Content.Load<Texture2D>("background6");
             sword = this.Content.Load<Texture2D>("sword");
             equippedSword = this.Content.Load<Texture2D>("weapon1");
             mjolnir = this.Content.Load<Texture2D>("mjolnir");
@@ -493,6 +493,28 @@ namespace Theseus
                     isStunned = false
                 };
                 Global.EnemyList.Add(enemy);
+            }
+
+            if (zone.ID >= 2)
+            {
+                int numberOfDragons = Global.Random.Next(1, 5);
+                for (int i = 0; i < numberOfDragons; i++)
+                {
+                    Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
+                    var pathFromAggressiveEnemy = new PathToPlayer(_player, currZone.Layout, Content.Load<Texture2D>("white"));
+                    pathFromAggressiveEnemy.CreateFrom(enemyCell.X, enemyCell.Y);
+                    Texture2D texture = Content.Load<Texture2D>("dragonanimated");
+                    var enemy = new AggressiveEnemy(texture, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
+                    {
+                        X = enemyCell.X,
+                        Y = enemyCell.Y,
+                        Health = 2,
+                        Damage = 1,
+                        Name = "Dragon",
+                        isStunned = false
+                    };
+                    Global.EnemyList.Add(enemy);
+                }
             }
         }
 

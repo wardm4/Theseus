@@ -65,6 +65,14 @@ namespace Theseus
                     if (currentFrame == totalFrames)
                         currentFrame = 0;
                     break;
+
+                case "Dragon":
+                    if (count % 8 == 7)
+                        currentFrame++;
+                    count++;
+                    if (currentFrame == totalFrames)
+                        currentFrame = 0;
+                    break;
             }
         }
 
@@ -110,6 +118,9 @@ namespace Theseus
                             }
                             i--;
                         }
+                        break;
+
+                    case "Dragon":
                         break;
                 }
             }
