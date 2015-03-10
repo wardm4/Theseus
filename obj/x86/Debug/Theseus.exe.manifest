@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="65936">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="67472">
       <assemblyIdentity name="Theseus" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>MN3lcKh611LMwXtbR1gA6ljgW7o=</dsig:DigestValue>
+        <dsig:DigestValue>Jhepj2CGxelb7wNb31SR3GBYq+0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -148,6 +148,33 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>hwU8h1sU+IgGmxkvCGxgvxfsWNA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\bident.png" size="1546">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>Agl/5gy5hsmb96NwTMpPw6VZQiQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\bidentLeft.png" size="1988">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>F/9axU0wUM41uZv450X+dxagYZc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\bidentRight.png" size="1954">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>3VxvoTPeyx8v63cULyAJ8goYurc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\dragonanimated.png" size="4568">
@@ -490,6 +517,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>vyKzZorAUjh8SUlofQtT1z5XXaQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\weapon3.png" size="1567">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>xMDJ2TIkoCl3A8CVgZC4heWBlaE=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\white.png" size="256">

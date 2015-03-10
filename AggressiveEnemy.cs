@@ -20,6 +20,7 @@ namespace Theseus
         private int count;
         private readonly IMap _map;
         private bool _isAwareOfPlayer;
+        private int k;
 
         public AggressiveEnemy(Texture2D texture, int rows, int columns, PathToPlayer path, IMap map)
         {
@@ -31,6 +32,7 @@ namespace Theseus
             count = 0;
             _path = path;
             _map = map;
+            k = 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -103,21 +105,25 @@ namespace Theseus
                         break;
 
                     case "Fire":
-                        int i = 1;
-                        while (i >= 0)
+                        if (k % 2 == 1)
                         {
-                            _path.CreateFrom(X, Y);
-                            if (Global.CombatManager.IsPlayerAt(_path.FirstCell.X, _path.FirstCell.Y) && !isStunned)
+                            int i = 1;
+                            while (i >= 0)
                             {
-                                Global.CombatManager.Attack(this, Global.CombatManager.FigureAt(_path.FirstCell.X, _path.FirstCell.Y));
+                                _path.CreateFrom(X, Y);
+                                if (Global.CombatManager.IsPlayerAt(_path.FirstCell.X, _path.FirstCell.Y) && !isStunned)
+                                {
+                                    Global.CombatManager.Attack(this, Global.CombatManager.FigureAt(_path.FirstCell.X, _path.FirstCell.Y));
+                                }
+                                else if (_path.cellList() != null && !isStunned && !Global.CombatManager.IsEnemyAt(_path.FirstCell.X, _path.FirstCell.Y))
+                                {
+                                    X = _path.FirstCell.X;
+                                    Y = _path.FirstCell.Y;
+                                }
+                                i--;
                             }
-                            else if (_path.cellList() != null && !isStunned && !Global.CombatManager.IsEnemyAt(_path.FirstCell.X, _path.FirstCell.Y))
-                            {
-                                X = _path.FirstCell.X;
-                                Y = _path.FirstCell.Y;
-                            }
-                            i--;
                         }
+                        k++;
                         break;
 
                     case "Dragon":

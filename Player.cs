@@ -31,16 +31,23 @@ namespace Theseus
             if (inputState.IsLeft(PlayerIndex.One))
             {
                 int tempX = X - 1;
-                if (map.IsWalkable(tempX, Y) && (isLeft || Weapon == "Sword"))
+                if (map.IsWalkable(tempX, Y) && (isLeft || !(Weapon == "Mjolnir")))
                 {
                     var enemy = Global.CombatManager.EnemyAt(tempX, Y);
+                    var enemy2 = Global.CombatManager.EnemyAt(tempX - 1, Y);
+                    
+
                     if (enemy == null)
                     {
-                        X = tempX;
+                            X = tempX;
                     }
                     else
                     {
                         Global.CombatManager.Attack(this, enemy);
+                    }
+                    if (enemy2 != null && Weapon == "Bident")
+                    {
+                        Global.CombatManager.Attack(this, enemy2);
                     }
                     isLeft = true;
                     return true;
@@ -51,12 +58,14 @@ namespace Theseus
                     return true;
                 }
             }
+
             else if (inputState.IsRight(PlayerIndex.One))
             {
                 int tempX = X + 1;
-                if (map.IsWalkable(tempX, Y) && (!isLeft || Weapon == "Sword"))
+                if (map.IsWalkable(tempX, Y) && (!isLeft || !(Weapon == "Mjolnir")))
                 {
                     var enemy = Global.CombatManager.EnemyAt(tempX, Y);
+                    var enemy2 = Global.CombatManager.EnemyAt(tempX + 1, Y);
                     if (enemy == null)
                     {
                         X = tempX;
@@ -64,6 +73,10 @@ namespace Theseus
                     else
                     {
                         Global.CombatManager.Attack(this, enemy);
+                    }
+                    if (enemy2 != null && Weapon == "Bident")
+                    {
+                        Global.CombatManager.Attack(this, enemy2);
                     }
                     isLeft = false;
                     return true;
@@ -74,12 +87,14 @@ namespace Theseus
                     return true;
                 }
             }
+
             else if (inputState.IsUp(PlayerIndex.One))
             {
                 int tempY = Y - 1;
                 if (map.IsWalkable(X, tempY))
                 {
                     var enemy = Global.CombatManager.EnemyAt(X, tempY);
+                    var enemy2 = Global.CombatManager.EnemyAt(X, tempY - 1);
                     if (enemy == null)
                     {
                         Y = tempY;
@@ -88,15 +103,21 @@ namespace Theseus
                     {
                         Global.CombatManager.Attack(this, enemy);
                     }
+                    if (enemy2 != null && Weapon == "Bident")
+                    {
+                        Global.CombatManager.Attack(this, enemy2);
+                    }
                     return true;
                 }
             }
+
             else if (inputState.IsDown(PlayerIndex.One))
             {
                 int tempY = Y + 1;
                 if (map.IsWalkable(X, tempY))
                 {
                     var enemy = Global.CombatManager.EnemyAt(X, tempY);
+                    var enemy2 = Global.CombatManager.EnemyAt(X, tempY + 1);
                     if (enemy == null)
                     {
                         Y = tempY;
@@ -104,6 +125,10 @@ namespace Theseus
                     else
                     {
                         Global.CombatManager.Attack(this, enemy);
+                    }
+                    if (enemy2 != null && Weapon == "Bident")
+                    {
+                        Global.CombatManager.Attack(this, enemy2);
                     }
                     return true;
                 }

@@ -57,14 +57,18 @@ namespace Theseus
         private Texture2D _weapon;
         private Texture2D sword;
         private Texture2D mjolnir;
+        private Texture2D bident;
         private Texture2D equippedMjolnir;
         private Texture2D equippedSword;
+        private Texture2D equippedBident;
 
         private Texture2D theseusLeft;
         private Texture2D theseusRight;
         private Texture2D theseusDead;
         private Texture2D mjolnirLeft;
-        public Texture2D mjolnirRight;
+        private Texture2D mjolnirRight;
+        private Texture2D bidentLeft;
+        private Texture2D bidentRight;
 
         private Texture2D ravenanimate;
         private Texture2D fireanimate;
@@ -134,6 +138,7 @@ namespace Theseus
             Global.ItemList.Add("Elixir");
             Global.ItemList.Add("Pandora");
             Global.ItemList.Add("Mjolnir");
+            Global.ItemList.Add("Bident");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -171,6 +176,8 @@ namespace Theseus
             theseusDead = this.Content.Load<Texture2D>("theseusDead");
             mjolnirLeft = this.Content.Load<Texture2D>("mjolnirLeft");
             mjolnirRight = this.Content.Load<Texture2D>("mjolnirRight");
+            bidentLeft = this.Content.Load<Texture2D>("bidentLeft");
+            bidentRight = this.Content.Load<Texture2D>("bidentRight");
 
             ravenanimate = Content.Load<Texture2D>("ravenanimate");
             fireanimate = Content.Load<Texture2D>("fireanimated");
@@ -181,6 +188,8 @@ namespace Theseus
             equippedSword = this.Content.Load<Texture2D>("weapon1");
             mjolnir = this.Content.Load<Texture2D>("mjolnir");
             equippedMjolnir = this.Content.Load<Texture2D>("weapon2");
+            bident = Content.Load<Texture2D>("bident");
+            equippedBident = Content.Load<Texture2D>("weapon3");
             _weapon = sword;
 
             titlescreen = this.Content.Load<Texture2D>("titlescreen");
@@ -202,7 +211,7 @@ namespace Theseus
                 Item = "None",
                 Weapon = "Sword",
                 Multiplier = 1,
-                isLeft = false,
+                isLeft = true,
                 Name = "Hilby"
             };
             AddZoneEnemies(currZone);
@@ -251,12 +260,30 @@ namespace Theseus
                     {
                         winTime++;
                     }
+                    if (elapsedTime % 20 == 0)
+                    {
+                        List<Cell> newFireLocations = new List<Cell>();
+                        foreach (var enemy in Global.EnemyList)
+                        {
+                            if (enemy.Name == "Dragon")
+                            {
+                                newFireLocations.Add(currZone.Layout.GetCell(enemy.X - 1, enemy.Y));
+                            }
+                        }
+                        foreach (var cell in newFireLocations)
+                        {
+                            AddEnemyAt("Fire", cell);
+                        }
+                    }
+                    UpdatePlayerFieldOfView();
                 }
                 if (Global.GameState == GameStates.EnemyTurn)
                 {
                     foreach (var enemy in Global.EnemyList)
                     {
                         enemy.Update();
+                        if (elapsedTime % 2 == 0)
+                            enemy.isStunned = false;
                     }
                     Global.GameState = GameStates.PlayerTurn;
                 }
@@ -335,6 +362,9 @@ namespace Theseus
                     case "Mjolnir":
                         _player.Sprite = mjolnirLeft;
                         break;
+                    case "Bident":
+                        _player.Sprite = bidentLeft;
+                        break;
                 }
             }
             if (_inputState.IsRight(PlayerIndex.One))
@@ -346,6 +376,9 @@ namespace Theseus
                         break;
                     case "Mjolnir":
                         _player.Sprite = mjolnirRight;
+                        break;
+                    case "Bident":
+                        _player.Sprite = bidentRight;
                         break;
                 }
             }
@@ -540,7 +573,7 @@ namespace Theseus
                     {
                         X = Place.X,
                         Y = Place.Y,
-                        Health = 2,
+                        Health = 4,
                         Damage = 1,
                         Name = "Dragon",
                         isStunned = false
@@ -662,6 +695,8 @@ namespace Theseus
                     break;
                 case "Sword": _itemImage = sword;
                     break;
+                case "Bident": _itemImage = bident;
+                    break;
             }
 
             switch (_player.Item)
@@ -680,9 +715,15 @@ namespace Theseus
                     _weapon = equippedSword;
                     _player.Multiplier = 1;
                     break;
+
                 case "Mjolnir": 
                     _weapon = equippedMjolnir;
                     _player.Multiplier = 2;
+                    break;
+
+                case "Bident":
+                    _weapon = equippedBident;
+                    _player.Multiplier = 1;
                     break;
             }
         }
@@ -698,12 +739,38 @@ namespace Theseus
                     currZone.Item = swap1;
                     currZone.ItemLocation = currZone.Layout.GetCell(_player.X + 1, _player.Y);
                     break;
+
                 case "Mjolnir":
+                    string swap2 = _player.Weapon;
+                    _player.Weapon = currZone.Item;
+                    currZone.Item = swap2;
+                    currZone.ItemLocation = currZone.Layout.GetCell(_player.X + 1, _player.Y);
+                    if (_player.isLeft)
+                        _player.Sprite = mjolnirLeft;
+                    else
+                        _player.Sprite = mjolnirRight;
+                    break;
+
                 case "Sword":
                     string swap3 = _player.Weapon;
                     _player.Weapon = currZone.Item;
                     currZone.Item = swap3;
                     currZone.ItemLocation = currZone.Layout.GetCell(_player.X + 1, _player.Y);
+                    if (_player.isLeft)
+                        _player.Sprite = theseusLeft;
+                    else
+                        _player.Sprite = theseusRight;
+                    break;
+
+                case "Bident":
+                    string swap4 = _player.Weapon;
+                    _player.Weapon = currZone.Item;
+                    currZone.Item = swap4;
+                    currZone.ItemLocation = currZone.Layout.GetCell(_player.X + 1, _player.Y);
+                    if (_player.isLeft)
+                        _player.Sprite = bidentLeft;
+                    else
+                        _player.Sprite = bidentRight;
                     break;
             }
         }
