@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="67472">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="69008">
       <assemblyIdentity name="Theseus" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Jhepj2CGxelb7wNb31SR3GBYq+0=</dsig:DigestValue>
+        <dsig:DigestValue>bKZR4Nn4xnCZpGGOKC28e37EiK4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -175,6 +175,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>3VxvoTPeyx8v63cULyAJ8goYurc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\boots.png" size="1673">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>DqlAAz8MXaPjpIGhfe+/RZl9zlM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\dragonanimated.png" size="4568">
@@ -409,6 +418,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>FbbzhmTgFxm3qUPTi6QTRcMDbuc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\spaceBoots.png" size="2122">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>rbjSztreIj71P+12bY1PGULVhxg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\spaceElixir.png" size="1683">

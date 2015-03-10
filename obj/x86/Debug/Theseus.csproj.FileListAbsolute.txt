@@ -63,3 +63,5 @@ C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\bident.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\weapon3.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\bidentLeft.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\bidentRight.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\boots.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\spaceBoots.png

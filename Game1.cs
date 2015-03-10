@@ -26,6 +26,7 @@ namespace Theseus
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //GUI and Level Display
         private Texture2D _floor;
         private Texture2D floor1;
         private Texture2D floor2;
@@ -47,6 +48,7 @@ namespace Theseus
         private Texture2D level6;
         private Texture2D level7;
 
+        //Items
         private Texture2D _itemImage;
         private Texture2D elixir;
         private Texture2D _spaceItem;
@@ -54,6 +56,8 @@ namespace Theseus
         private Texture2D spaceElixir;
         private Texture2D pandora;
         private Texture2D spacePandora;
+        private Texture2D boots;
+        private Texture2D spaceBoots;
         private Texture2D _weapon;
         private Texture2D sword;
         private Texture2D mjolnir;
@@ -62,6 +66,7 @@ namespace Theseus
         private Texture2D equippedSword;
         private Texture2D equippedBident;
 
+        //Player Sprite
         private Texture2D theseusLeft;
         private Texture2D theseusRight;
         private Texture2D theseusDead;
@@ -70,6 +75,7 @@ namespace Theseus
         private Texture2D bidentLeft;
         private Texture2D bidentRight;
 
+        //Enemy Sprites
         private Texture2D ravenanimate;
         private Texture2D fireanimate;
         private Texture2D dragonanimate;
@@ -88,6 +94,8 @@ namespace Theseus
         private Zone currZone;
         private bool isMinotaurAlive;
         //private Song song;
+        public bool speed;
+        int speedCounter;
 
         public Game1()
             : base()
@@ -130,72 +138,77 @@ namespace Theseus
 
         protected override void LoadContent()
         {
+            //Initializes Some Values
             elapsedTime = 0;
             deadTime = 0;
             winTime = 0;
+            speedCounter = 0;
             Global.EnemyList.Clear();
             Global.ItemList.Clear();
             Global.ItemList.Add("Elixir");
             Global.ItemList.Add("Pandora");
+            Global.ItemList.Add("Boots");
             Global.ItemList.Add("Mjolnir");
             Global.ItemList.Add("Bident");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-            floor1 = this.Content.Load<Texture2D>("floor1");
-            floor2 = this.Content.Load<Texture2D>("floor2");
-            floor3 = this.Content.Load<Texture2D>("floor3");
-            wall1 = this.Content.Load<Texture2D>("rock");
-            wall2 = this.Content.Load<Texture2D>("rock2");
-            wall3 = this.Content.Load<Texture2D>("rock3");
+            // Loads all Content Up Front
+            floor1 = Content.Load<Texture2D>("floor1");
+            floor2 = Content.Load<Texture2D>("floor2");
+            floor3 = Content.Load<Texture2D>("floor3");
+            wall1 = Content.Load<Texture2D>("rock");
+            wall2 = Content.Load<Texture2D>("rock2");
+            wall3 = Content.Load<Texture2D>("rock3");
 
-            life0 = this.Content.Load<Texture2D>("life0");
-            life1 = this.Content.Load<Texture2D>("life");
-            life2 = this.Content.Load<Texture2D>("life2");
+            life0 = Content.Load<Texture2D>("life0");
+            life1 = Content.Load<Texture2D>("life");
+            life2 = Content.Load<Texture2D>("life2");
             _life = life1;
 
-            level1 = this.Content.Load<Texture2D>("level1");
-            level2 = this.Content.Load<Texture2D>("level2");
-            level3 = this.Content.Load<Texture2D>("level3");
-            level4 = this.Content.Load<Texture2D>("level4");
-            level5 = this.Content.Load<Texture2D>("level5");
-            level6 = this.Content.Load<Texture2D>("level6");
-            level7 = this.Content.Load<Texture2D>("level7");
+            level1 = Content.Load<Texture2D>("level1");
+            level2 = Content.Load<Texture2D>("level2");
+            level3 = Content.Load<Texture2D>("level3");
+            level4 = Content.Load<Texture2D>("level4");
+            level5 = Content.Load<Texture2D>("level5");
+            level6 = Content.Load<Texture2D>("level6");
+            level7 = Content.Load<Texture2D>("level7");
             _level = level1;
 
-            spaceEmpty = this.Content.Load<Texture2D>("spaceitem");
-            elixir = this.Content.Load<Texture2D>("elixir");
-            spaceElixir = this.Content.Load<Texture2D>("spaceElixir");
-            pandora = this.Content.Load<Texture2D>("pandora");
-            spacePandora = this.Content.Load<Texture2D>("spacePandora");
+            spaceEmpty = Content.Load<Texture2D>("spaceitem");
+            elixir = Content.Load<Texture2D>("elixir");
+            spaceElixir = Content.Load<Texture2D>("spaceElixir");
+            pandora = Content.Load<Texture2D>("pandora");
+            spacePandora = Content.Load<Texture2D>("spacePandora");
+            boots = Content.Load<Texture2D>("boots");
+            spaceBoots = Content.Load<Texture2D>("spaceBoots");
 
-            theseusLeft = this.Content.Load<Texture2D>("theseusLeft");
-            theseusRight = this.Content.Load<Texture2D>("theseusRight");
-            theseusDead = this.Content.Load<Texture2D>("theseusDead");
-            mjolnirLeft = this.Content.Load<Texture2D>("mjolnirLeft");
-            mjolnirRight = this.Content.Load<Texture2D>("mjolnirRight");
-            bidentLeft = this.Content.Load<Texture2D>("bidentLeft");
-            bidentRight = this.Content.Load<Texture2D>("bidentRight");
+            theseusLeft = Content.Load<Texture2D>("theseusLeft");
+            theseusRight = Content.Load<Texture2D>("theseusRight");
+            theseusDead = Content.Load<Texture2D>("theseusDead");
+            mjolnirLeft = Content.Load<Texture2D>("mjolnirLeft");
+            mjolnirRight = Content.Load<Texture2D>("mjolnirRight");
+            bidentLeft = Content.Load<Texture2D>("bidentLeft");
+            bidentRight = Content.Load<Texture2D>("bidentRight");
 
             ravenanimate = Content.Load<Texture2D>("ravenanimate");
             fireanimate = Content.Load<Texture2D>("fireanimated");
             dragonanimate = Content.Load<Texture2D>("dragonanimated");
 
-            _background = this.Content.Load<Texture2D>("background6");
-            sword = this.Content.Load<Texture2D>("sword");
-            equippedSword = this.Content.Load<Texture2D>("weapon1");
-            mjolnir = this.Content.Load<Texture2D>("mjolnir");
-            equippedMjolnir = this.Content.Load<Texture2D>("weapon2");
+            _background = Content.Load<Texture2D>("background6");
+            sword = Content.Load<Texture2D>("sword");
+            equippedSword = Content.Load<Texture2D>("weapon1");
+            mjolnir = Content.Load<Texture2D>("mjolnir");
+            equippedMjolnir = Content.Load<Texture2D>("weapon2");
             bident = Content.Load<Texture2D>("bident");
             equippedBident = Content.Load<Texture2D>("weapon3");
             _weapon = sword;
 
-            titlescreen = this.Content.Load<Texture2D>("titlescreen");
-            losescreen = this.Content.Load<Texture2D>("losescreen");
-            winscreen = this.Content.Load<Texture2D>("winscreen");
-            portal = this.Content.Load<Texture2D>("portal");
+            titlescreen = Content.Load<Texture2D>("titlescreen");
+            losescreen = Content.Load<Texture2D>("losescreen");
+            winscreen = Content.Load<Texture2D>("winscreen");
+            portal = Content.Load<Texture2D>("portal");
             //song = this.Content.Load<Song>("gamesoundtrack");
             Cell startingCell = currZone.GetRandomEmptyCell();
             Global.Camera.CenterOn(startingCell);
@@ -221,6 +234,7 @@ namespace Theseus
             Global.CombatManager = new CombatManager(_player);
             //swordswipe = this.Content.Load<SoundEffect>("sword1");
             //Global.CombatManager.effect = swordswipe;
+            speed = false;
         }
 
         /// <summary>
@@ -260,14 +274,22 @@ namespace Theseus
                     {
                         winTime++;
                     }
+                    
                     if (elapsedTime % 20 == 0)
                     {
                         List<Cell> newFireLocations = new List<Cell>();
                         foreach (var enemy in Global.EnemyList)
                         {
-                            if (enemy.Name == "Dragon")
+                            if (enemy.Name == "Dragon" && currZone.Layout.IsInFov(enemy.X, enemy.Y))
                             {
-                                newFireLocations.Add(currZone.Layout.GetCell(enemy.X - 1, enemy.Y));
+                                if (currZone.Layout.GetCell(enemy.X - 1, enemy.Y).IsWalkable)
+                                    newFireLocations.Add(currZone.Layout.GetCell(enemy.X - 1, enemy.Y));
+                                else if (currZone.Layout.GetCell(enemy.X + 1, enemy.Y).IsWalkable)
+                                    newFireLocations.Add(currZone.Layout.GetCell(enemy.X + 1, enemy.Y));
+                                else if (currZone.Layout.GetCell(enemy.X, enemy.Y - 1).IsWalkable)
+                                    newFireLocations.Add(currZone.Layout.GetCell(enemy.X, enemy.Y - 1));
+                                else
+                                    newFireLocations.Add(currZone.Layout.GetCell(enemy.X, enemy.Y + 1));
                             }
                         }
                         foreach (var cell in newFireLocations)
@@ -277,15 +299,38 @@ namespace Theseus
                     }
                     UpdatePlayerFieldOfView();
                 }
+
                 if (Global.GameState == GameStates.EnemyTurn)
                 {
-                    foreach (var enemy in Global.EnemyList)
+                    if (speed == true)
                     {
-                        enemy.Update();
-                        if (elapsedTime % 2 == 0)
-                            enemy.isStunned = false;
+                        speedCounter = 20;
+                        speed = false;
                     }
-                    Global.GameState = GameStates.PlayerTurn;
+                    if (speedCounter > 0)
+                    {
+                        if (speedCounter % 2 == 1)
+                        {
+                            foreach (var enemy in Global.EnemyList)
+                            {
+                                enemy.Update();
+                                if (elapsedTime % 2 == 0)
+                                    enemy.isStunned = false;
+                            }
+                        }
+                        Global.GameState = GameStates.PlayerTurn;
+                        speedCounter--;
+                    }
+                    else
+                    {
+                        foreach (var enemy in Global.EnemyList)
+                        {
+                            enemy.Update();
+                            if (elapsedTime % 2 == 0)
+                                enemy.isStunned = false;
+                        }
+                        Global.GameState = GameStates.PlayerTurn;
+                    }
                 }
 
                 if (Global.GameState == GameStates.PlayerTurn && _inputState.IsAction(PlayerIndex.One) && _player.X == currZone.Exit.X && _player.Y == currZone.Exit.Y)
@@ -314,9 +359,12 @@ namespace Theseus
                             AOEDamage(5);
                             _player.Item = "None";
                             break;
+                        case "Boots":
+                            speed = true;
+                            _player.Item = "None";
+                            break;
                     }
                     elapsedTime++;
-                    Global.GameState = GameStates.EnemyTurn;
                 }
             }
 
@@ -346,7 +394,6 @@ namespace Theseus
 
             if (_player.X == currZone.ItemLocation.X && _player.Y == currZone.ItemLocation.Y && currZone.Item != "None")
             {
-
                 ItemSwap();
             }
 
@@ -691,6 +738,8 @@ namespace Theseus
                     break;
                 case "Pandora": _itemImage = pandora;
                     break;
+                case "Boots": _itemImage = boots;
+                    break;
                 case "Mjolnir": _itemImage = mjolnir;
                     break;
                 case "Sword": _itemImage = sword;
@@ -706,6 +755,8 @@ namespace Theseus
                 case "Elixir": _spaceItem = spaceElixir;
                     break;
                 case "Pandora": _spaceItem = spacePandora;
+                    break;
+                case "Boots": _spaceItem = spaceBoots;
                     break;
             }
 
@@ -734,17 +785,16 @@ namespace Theseus
             {
                 case "Elixir":
                 case "Pandora":
+                case "Boots":
                     string swap1 = _player.Item;
                     _player.Item = currZone.Item;
                     currZone.Item = swap1;
-                    currZone.ItemLocation = currZone.Layout.GetCell(_player.X + 1, _player.Y);
                     break;
 
                 case "Mjolnir":
                     string swap2 = _player.Weapon;
                     _player.Weapon = currZone.Item;
                     currZone.Item = swap2;
-                    currZone.ItemLocation = currZone.Layout.GetCell(_player.X + 1, _player.Y);
                     if (_player.isLeft)
                         _player.Sprite = mjolnirLeft;
                     else
@@ -755,7 +805,6 @@ namespace Theseus
                     string swap3 = _player.Weapon;
                     _player.Weapon = currZone.Item;
                     currZone.Item = swap3;
-                    currZone.ItemLocation = currZone.Layout.GetCell(_player.X + 1, _player.Y);
                     if (_player.isLeft)
                         _player.Sprite = theseusLeft;
                     else
@@ -766,13 +815,20 @@ namespace Theseus
                     string swap4 = _player.Weapon;
                     _player.Weapon = currZone.Item;
                     currZone.Item = swap4;
-                    currZone.ItemLocation = currZone.Layout.GetCell(_player.X + 1, _player.Y);
                     if (_player.isLeft)
                         _player.Sprite = bidentLeft;
                     else
                         _player.Sprite = bidentRight;
                     break;
             }
+            if (currZone.Layout.GetCell(_player.X + 1, _player.Y).IsWalkable)
+                currZone.ItemLocation = currZone.Layout.GetCell(_player.X + 1, _player.Y);
+            else if (currZone.Layout.GetCell(_player.X - 1, _player.Y).IsWalkable)
+                currZone.ItemLocation = currZone.Layout.GetCell(_player.X - 1, _player.Y);
+            else if (currZone.Layout.GetCell(_player.X, _player.Y + 1).IsWalkable)
+                currZone.ItemLocation = currZone.Layout.GetCell(_player.X, _player.Y + 1);
+            else
+                currZone.ItemLocation = currZone.Layout.GetCell(_player.X, _player.Y - 1);
         }
     }
 }
