@@ -66,6 +66,10 @@ namespace Theseus
         private Texture2D mjolnirLeft;
         public Texture2D mjolnirRight;
 
+        private Texture2D ravenanimate;
+        private Texture2D fireanimate;
+        private Texture2D dragonanimate;
+
         private Texture2D _background;
         private Texture2D titlescreen;
         private Texture2D losescreen;
@@ -168,6 +172,10 @@ namespace Theseus
             mjolnirLeft = this.Content.Load<Texture2D>("mjolnirLeft");
             mjolnirRight = this.Content.Load<Texture2D>("mjolnirRight");
 
+            ravenanimate = Content.Load<Texture2D>("ravenanimate");
+            fireanimate = Content.Load<Texture2D>("fireanimated");
+            dragonanimate = Content.Load<Texture2D>("dragonanimated");
+
             _background = this.Content.Load<Texture2D>("background6");
             sword = this.Content.Load<Texture2D>("sword");
             equippedSword = this.Content.Load<Texture2D>("weapon1");
@@ -197,7 +205,7 @@ namespace Theseus
                 isLeft = false,
                 Name = "Hilby"
             };
-            AddAggressiveEnemies(currZone);
+            AddZoneEnemies(currZone);
             AddItem(currZone);
             UpdatePlayerFieldOfView();
             Global.GameState = GameStates.PlayerTurn;
@@ -261,7 +269,7 @@ namespace Theseus
                     _player.X = newStart.X;
                     _player.Y = newStart.Y;
                     Global.GameState = GameStates.EnemyTurn;
-                    AddAggressiveEnemies(currZone);
+                    AddZoneEnemies(currZone);
                     AddItem(currZone);
                     elapsedTime++;
                     UpdatePlayerFieldOfView();
@@ -454,67 +462,91 @@ namespace Theseus
             }
         }
 
-        private void AddAggressiveEnemies(Zone zone)
+        private void AddZoneEnemies(Zone zone)
         {
-            Global.EnemyList.TrimExcess();
-            int numberOfRavens = Global.Random.Next(1,5);
-            for (int i = 0; i < numberOfRavens; i++)
+            switch (zone.ID)
             {
-                Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
-                var pathFromAggressiveEnemy = new PathToPlayer(_player, currZone.Layout, Content.Load<Texture2D>("white"));
-                pathFromAggressiveEnemy.CreateFrom(enemyCell.X, enemyCell.Y);
-                Texture2D texture = Content.Load<Texture2D>("ravenanimate");
-                var enemy = new AggressiveEnemy(texture, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
-                {
-                    X = enemyCell.X,
-                    Y = enemyCell.Y,
-                    Health = 1,
-                    Damage = 1,
-                    Name = "Raven",
-                    isStunned = false
-                };
-                Global.EnemyList.Add(enemy);
-            }
-
-            int numberOfFires = Global.Random.Next(1,5);
-            for (int i = 0; i < numberOfFires; i++)
-            {
-                Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
-                var pathFromAggressiveEnemy = new PathToPlayer(_player, currZone.Layout, Content.Load<Texture2D>("white"));
-                pathFromAggressiveEnemy.CreateFrom(enemyCell.X, enemyCell.Y);
-                Texture2D texture = Content.Load<Texture2D>("fireanimated");
-                var enemy = new AggressiveEnemy(texture, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
-                {
-                    X = enemyCell.X,
-                    Y = enemyCell.Y,
-                    Health = 2,
-                    Damage = 1,
-                    Name = "Fire",
-                    isStunned = false
-                };
-                Global.EnemyList.Add(enemy);
-            }
-
-            if (zone.ID >= 2)
-            {
-                int numberOfDragons = Global.Random.Next(1, 5);
-                for (int i = 0; i < numberOfDragons; i++)
-                {
-                    Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
-                    var pathFromAggressiveEnemy = new PathToPlayer(_player, currZone.Layout, Content.Load<Texture2D>("white"));
-                    pathFromAggressiveEnemy.CreateFrom(enemyCell.X, enemyCell.Y);
-                    Texture2D texture = Content.Load<Texture2D>("dragonanimated");
-                    var enemy = new AggressiveEnemy(texture, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
+                case 1:
+                case 2:
+                    Global.EnemyList.TrimExcess();
+                    int numberOfRavens = Global.Random.Next(1,5);
+                    for (int i = 0; i < numberOfRavens; i++)
                     {
-                        X = enemyCell.X,
-                        Y = enemyCell.Y,
+                        Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
+                        AddEnemyAt("Raven", enemyCell);
+                    }
+
+                    int numberOfFires = Global.Random.Next(1,5);
+                    for (int i = 0; i < numberOfFires; i++)
+                    {
+                        Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
+                        AddEnemyAt("Fire", enemyCell);
+                    }
+                    break;
+
+                case 3:
+                case 4:
+                    Global.EnemyList.TrimExcess();
+                    int numberOfRavens2 = Global.Random.Next(1,6);
+                    for (int i = 0; i < numberOfRavens2; i++)
+                    {
+                        Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
+                        AddEnemyAt("Raven", enemyCell);
+                    }
+                    int numberOfDragons = Global.Random.Next(1, 4);
+                    for (int i = 0; i < numberOfDragons; i++)
+                    {
+                        Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
+                        AddEnemyAt("Dragon", enemyCell);
+                    }
+                    break;
+            }
+        }
+
+        private void AddEnemyAt(string Name, Cell Place)
+        {
+            var pathFromAggressiveEnemy = new PathToPlayer(_player, currZone.Layout, Content.Load<Texture2D>("white"));
+            pathFromAggressiveEnemy.CreateFrom(Place.X, Place.Y);
+            switch (Name)
+            {
+                case "Raven":
+                    var enemy = new AggressiveEnemy(ravenanimate, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
+                    {
+                        X = Place.X,
+                        Y = Place.Y,
+                        Health = 1,
+                        Damage = 1,
+                        Name = "Raven",
+                        isStunned = false
+                    };
+                    Global.EnemyList.Add(enemy);
+                    break;
+
+                case "Fire":
+                    var enemy2 = new AggressiveEnemy(fireanimate, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
+                    {
+                        X = Place.X,
+                        Y = Place.Y,
+                        Health = 2,
+                        Damage = 1,
+                        Name = "Fire",
+                        isStunned = false
+                    };
+                    Global.EnemyList.Add(enemy2);
+                    break;
+
+                case "Dragon":
+                    var enemy3 = new AggressiveEnemy(dragonanimate, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
+                    {
+                        X = Place.X,
+                        Y = Place.Y,
                         Health = 2,
                         Damage = 1,
                         Name = "Dragon",
                         isStunned = false
                     };
-                    Global.EnemyList.Add(enemy);
-                }
+                    Global.EnemyList.Add(enemy3);
+                    break;
             }
         }
 
