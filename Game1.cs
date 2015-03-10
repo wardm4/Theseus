@@ -692,9 +692,17 @@ namespace Theseus
                         _player.Level = 4;
                         _player.Damage = 4;
                         break;
-                    case 35:
+                    case 40:
                         _player.Level = 5;
                         _player.Damage = 5;
+                        break;
+                    case 65:
+                        _player.Level = 6;
+                        _player.Damage = 8;
+                        break;
+                    case 100:
+                        _player.Level = 7;
+                        _player.Damage = 12;
                         break;
                 }
             }

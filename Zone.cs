@@ -14,12 +14,20 @@ namespace Theseus
         public int ID { get; set; }
         public Cell Exit { get; set; }
         public Cell ItemLocation { get; set; }
+        private RandomRoomsMapCreationStrategy<Map> mapCreationStrategy;
 
         public Zone(int currID)
         {
             currID++;
             ID = currID;
-            IMapCreationStrategy<Map> mapCreationStrategy = new RandomRoomsMapCreationStrategy<Map>(Global.MapWidth, Global.MapHeight, 50, 7, 3);
+            if (currID < 6)
+            {
+                mapCreationStrategy = new RandomRoomsMapCreationStrategy<Map>(Global.MapWidth, Global.MapHeight, 50, 7, 3);
+            }
+            else
+            {
+                mapCreationStrategy = new RandomRoomsMapCreationStrategy<Map>(Global.MapWidth, Global.MapHeight, 3, 15, 15);
+            }
             Layout = Map.Create(mapCreationStrategy);
             Exit = GetRandomEmptyCell();
             Item = "None";
