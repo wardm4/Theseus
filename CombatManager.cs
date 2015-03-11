@@ -42,6 +42,12 @@ namespace Theseus
                         case "Fire":
                             Global.XPTally += 2;
                             break;
+                        case "Dragon":
+                            Global.XPTally += 3;
+                            break;
+                        case "Minotaur":
+                            Global.isMinotaurAlive = false;
+                            break;
                     }
                     Global.EnemyList.Remove(enemy);
                     Global.EnemyList.TrimExcess();
@@ -78,6 +84,18 @@ namespace Theseus
         public bool IsEnemyAt(int x, int y)
         {
             return EnemyAt(x, y) != null;
+        }
+
+        public Figure IsPlayerDiagonal(int x, int y)
+        {
+            if (IsPlayerAt(x+1, y+1) || IsPlayerAt (x-1, y-1) || IsPlayerAt(x+1, y-1) || IsPlayerAt(x-1, y+1))
+            {
+                return _player; 
+            }
+            else 
+            {
+                return null;
+            }
         }
     }
 }

@@ -79,6 +79,8 @@ namespace Theseus
         private Texture2D ravenanimate;
         private Texture2D fireanimate;
         private Texture2D dragonanimate;
+        private Texture2D snakeanimate;
+        private Texture2D minotauranimate;
 
         private Texture2D _background;
         private Texture2D titlescreen;
@@ -92,10 +94,10 @@ namespace Theseus
         public int deadTime;
         public int winTime;
         private Zone currZone;
-        private bool isMinotaurAlive;
         //private Song song;
         public bool speed;
         int speedCounter;
+        private bool addMinotaurEnemy;
 
         public Game1()
             : base()
@@ -125,8 +127,8 @@ namespace Theseus
             Global.Camera.ViewportHeight = graphics.GraphicsDevice.Viewport.Height;
             graphics.PreferredBackBufferWidth = 960;
             graphics.PreferredBackBufferHeight = 545;
-            currZone = new Zone(0);
-            isMinotaurAlive = true;
+            currZone = new Zone(4);
+            Global.isMinotaurAlive = true;
 
             base.Initialize();
         }
@@ -143,6 +145,7 @@ namespace Theseus
             deadTime = 0;
             winTime = 0;
             speedCounter = 0;
+            addMinotaurEnemy = false;
             Global.EnemyList.Clear();
             Global.ItemList.Clear();
             Global.ItemList.Add("Elixir");
@@ -195,6 +198,8 @@ namespace Theseus
             ravenanimate = Content.Load<Texture2D>("ravenanimate");
             fireanimate = Content.Load<Texture2D>("fireanimated");
             dragonanimate = Content.Load<Texture2D>("dragonanimated");
+            snakeanimate = Content.Load<Texture2D>("snakeanimated");
+            minotauranimate = Content.Load<Texture2D>("minotauranimated");
 
             _background = Content.Load<Texture2D>("background6");
             sword = Content.Load<Texture2D>("sword");
@@ -208,7 +213,7 @@ namespace Theseus
             titlescreen = Content.Load<Texture2D>("titlescreen");
             losescreen = Content.Load<Texture2D>("losescreen");
             winscreen = Content.Load<Texture2D>("winscreen");
-            portal = Content.Load<Texture2D>("portal");
+            portal = Content.Load<Texture2D>("exit");
             //song = this.Content.Load<Song>("gamesoundtrack");
             Cell startingCell = currZone.GetRandomEmptyCell();
             Global.Camera.CenterOn(startingCell);
@@ -270,9 +275,29 @@ namespace Theseus
                     {
                         deadTime++;
                     }
-                    if (!isMinotaurAlive)
+                    if (!Global.isMinotaurAlive)
                     {
                         winTime++;
+                    }
+
+                    if (addMinotaurEnemy)
+                    {
+                        int i = Global.Random.Next(4);
+                        string tmpName = "None";
+                        switch (i)
+                        {
+                            case 1: tmpName = "Raven";
+                                break;
+                            case 2: tmpName = "Fire";
+                                break;
+                            case 3: tmpName = "Dragon";
+                                break;
+                            case 4: tmpName = "Snake";
+                                break;
+                        }
+                        Cell newEnemyCell = currZone.GetEnemyCell(_player.X, _player.Y);
+                        AddEnemyAt(tmpName, newEnemyCell);
+                        addMinotaurEnemy = false;
                     }
                     
                     if (elapsedTime % 20 == 0)
@@ -313,7 +338,10 @@ namespace Theseus
                         {
                             foreach (var enemy in Global.EnemyList)
                             {
-                                enemy.Update();
+                                if (enemy.Update() == 1) 
+                                {
+                                    addMinotaurEnemy = true;
+                                }
                                 if (elapsedTime % 2 == 0)
                                     enemy.isStunned = false;
                             }
@@ -325,7 +353,10 @@ namespace Theseus
                     {
                         foreach (var enemy in Global.EnemyList)
                         {
-                            enemy.Update();
+                            if (enemy.Update() == 1)
+                            {
+                                addMinotaurEnemy = true;
+                            }
                             if (elapsedTime % 2 == 0)
                                 enemy.isStunned = false;
                         }
@@ -333,7 +364,8 @@ namespace Theseus
                     }
                 }
 
-                if (Global.GameState == GameStates.PlayerTurn && _inputState.IsAction(PlayerIndex.One) && _player.X == currZone.Exit.X && _player.Y == currZone.Exit.Y)
+                if (Global.GameState == GameStates.PlayerTurn && _inputState.IsAction(PlayerIndex.One) 
+                    && _player.X == currZone.Exit.X && _player.Y == currZone.Exit.Y && currZone.ID < 6)
                 {
                     Global.EnemyList.Clear();
                     currZone = new Zone(currZone.ID);
@@ -565,7 +597,6 @@ namespace Theseus
                     break;
 
                 case 3:
-                case 4:
                     Global.EnemyList.TrimExcess();
                     int numberOfRavens2 = Global.Random.Next(1,6);
                     for (int i = 0; i < numberOfRavens2; i++)
@@ -580,6 +611,33 @@ namespace Theseus
                         AddEnemyAt("Dragon", enemyCell);
                     }
                     break;
+                case 4:
+                case 5:
+                    Global.EnemyList.TrimExcess();
+                    int numberOfRavens3 = Global.Random.Next(1,6);
+                    for (int i = 0; i < numberOfRavens3; i++)
+                    {
+                        Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
+                        AddEnemyAt("Raven", enemyCell);
+                    }
+                    int numberOfDragons2 = Global.Random.Next(1, 4);
+                    for (int i = 0; i < numberOfDragons2; i++)
+                    {
+                        Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
+                        AddEnemyAt("Dragon", enemyCell);
+                    }
+                    int numberOfSnakes = Global.Random.Next(1, 4);
+                    for (int i = 0; i < numberOfSnakes; i++)
+                    {
+                        Cell enemyCell = zone.GetEnemyCell(_player.X, _player.Y);
+                        AddEnemyAt("Snake", enemyCell);
+                    }
+                        break;
+                case 6:
+                    Global.EnemyList.TrimExcess();
+                    Cell tmpCell = zone.GetEnemyCell(_player.X, _player.Y);
+                    AddEnemyAt("Minotaur", tmpCell);
+                    break;
             }
         }
 
@@ -590,7 +648,7 @@ namespace Theseus
             switch (Name)
             {
                 case "Raven":
-                    var enemy = new AggressiveEnemy(ravenanimate, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
+                    var enemy = new AggressiveEnemy(ravenanimate, 3, 3, pathFromAggressiveEnemy, currZone)
                     {
                         X = Place.X,
                         Y = Place.Y,
@@ -603,7 +661,7 @@ namespace Theseus
                     break;
 
                 case "Fire":
-                    var enemy2 = new AggressiveEnemy(fireanimate, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
+                    var enemy2 = new AggressiveEnemy(fireanimate, 3, 3, pathFromAggressiveEnemy, currZone)
                     {
                         X = Place.X,
                         Y = Place.Y,
@@ -616,16 +674,42 @@ namespace Theseus
                     break;
 
                 case "Dragon":
-                    var enemy3 = new AggressiveEnemy(dragonanimate, 3, 3, pathFromAggressiveEnemy, currZone.Layout)
+                    var enemy3 = new AggressiveEnemy(dragonanimate, 3, 3, pathFromAggressiveEnemy, currZone)
                     {
                         X = Place.X,
                         Y = Place.Y,
-                        Health = 4,
+                        Health = 5,
                         Damage = 1,
                         Name = "Dragon",
                         isStunned = false
                     };
                     Global.EnemyList.Add(enemy3);
+                    break;
+
+                case "Snake":
+                    var enemy4 = new AggressiveEnemy(snakeanimate, 3, 3, pathFromAggressiveEnemy, currZone)
+                    {
+                        X = Place.X,
+                        Y = Place.Y,
+                        Health = 9,
+                        Damage = 1,
+                        Name = "Snake",
+                        isStunned = false
+                    };
+                    Global.EnemyList.Add(enemy4);
+                    break;
+
+                case "Minotaur":
+                    var enemy5 = new AggressiveEnemy(minotauranimate, 3, 3, pathFromAggressiveEnemy, currZone)
+                    {
+                        X = Place.X,
+                        Y = Place.Y,
+                        Health = 40,
+                        Damage = 2,
+                        Name = "Minotaur",
+                        isStunned = false
+                    };
+                    Global.EnemyList.Add(enemy5);
                     break;
             }
         }
@@ -661,6 +745,9 @@ namespace Theseus
                             break;
                         case "Dragon":
                             Global.XPTally += 3;
+                            break;
+                        case "Snake":
+                            Global.XPTally += 4;
                             break;
                     }
                 }

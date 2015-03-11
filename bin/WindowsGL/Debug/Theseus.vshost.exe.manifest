@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="Theseus.exe" version="0.1.1.5" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="Theseus.exe" version="0.1.1.6" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="theseusRight.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -103,14 +103,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="69008">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Theseus.exe" size="71056">
       <assemblyIdentity name="Theseus" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>INl5eTVUlotdtfGmehcUSa+J92Q=</dsig:DigestValue>
+        <dsig:DigestValue>Sw9ryHYAXvffVrN8L9EVPK26Im0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -177,6 +177,15 @@
       <dsig:DigestValue>3VxvoTPeyx8v63cULyAJ8goYurc=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="Content\blob.png" size="7938">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>N8/0hZ7Fps63KMntSiFy5omtauI=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Content\boots.png" size="1673">
     <hash>
       <dsig:Transforms>
@@ -202,6 +211,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>3NDsEWQ+6Bazf47al8hDj4uQb4A=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\exit.png" size="4693">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>S7eyW+EnUg50RNBoTCXLkPppET8=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\fireanimated.png" size="14079">
@@ -339,6 +357,15 @@
       <dsig:DigestValue>y69SRDoFDyfJJMPz7G7YFj4ehIs=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="Content\minotauranimated.png" size="7478">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>26gP0p3RcuI1LgtMiO/jFDsJ25o=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Content\mjolnir.png" size="1673">
     <hash>
       <dsig:Transforms>
@@ -418,6 +445,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>FbbzhmTgFxm3qUPTi6QTRcMDbuc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\snakeanimated.png" size="5294">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>6T8YdaIPXRrIdLWbGUtNYEgju8g=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\spaceBoots.png" size="2122">

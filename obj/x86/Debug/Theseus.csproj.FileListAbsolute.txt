@@ -65,3 +65,7 @@ C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\bidentLeft.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\bidentRight.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\boots.png
 C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\spaceBoots.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\blob.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\minotauranimated.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\snakeanimated.png
+C:\Users\Matt\Dropbox\Theseus\Theseus\bin\WindowsGL\Debug\Content\exit.png

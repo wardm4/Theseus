@@ -60,7 +60,7 @@ namespace Theseus
             }
         }
 
-        private int Distance(int firstx, int firsty, int secondx, int secondy)
+        public int Distance(int firstx, int firsty, int secondx, int secondy)
         {
             return ((firstx - secondx) * (firstx - secondx) + (firsty - secondy) * (firsty - secondy));
         }
