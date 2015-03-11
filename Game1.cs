@@ -127,7 +127,7 @@ namespace Theseus
             Global.Camera.ViewportHeight = graphics.GraphicsDevice.Viewport.Height;
             graphics.PreferredBackBufferWidth = 960;
             graphics.PreferredBackBufferHeight = 545;
-            currZone = new Zone(4);
+            currZone = new Zone(0);
             Global.isMinotaurAlive = true;
 
             base.Initialize();
@@ -307,14 +307,23 @@ namespace Theseus
                         {
                             if (enemy.Name == "Dragon" && currZone.Layout.IsInFov(enemy.X, enemy.Y))
                             {
-                                if (currZone.Layout.GetCell(enemy.X - 1, enemy.Y).IsWalkable)
-                                    newFireLocations.Add(currZone.Layout.GetCell(enemy.X - 1, enemy.Y));
-                                else if (currZone.Layout.GetCell(enemy.X + 1, enemy.Y).IsWalkable)
-                                    newFireLocations.Add(currZone.Layout.GetCell(enemy.X + 1, enemy.Y));
-                                else if (currZone.Layout.GetCell(enemy.X, enemy.Y - 1).IsWalkable)
+                                if (currZone.Layout.GetCell(enemy.X - 1, enemy.Y).IsWalkable && (enemy.X - 1 != _player.X || enemy.Y != _player.Y))
+                                { 
+                                    newFireLocations.Add(currZone.Layout.GetCell(enemy.X - 1, enemy.Y)); 
+                                }
+                                else if (currZone.Layout.GetCell(enemy.X + 1, enemy.Y).IsWalkable && (enemy.X + 1 != _player.X || enemy.Y != _player.Y))
+                                { 
+                                    newFireLocations.Add(currZone.Layout.GetCell(enemy.X + 1, enemy.Y)); 
+                                }
+                                else if (currZone.Layout.GetCell(enemy.X, enemy.Y - 1).IsWalkable
+                                    && (enemy.X != _player.X || enemy.Y - 1 != _player.Y))
+                                {
                                     newFireLocations.Add(currZone.Layout.GetCell(enemy.X, enemy.Y - 1));
-                                else
+                                }
+                                else if (enemy.X != _player.X || enemy.Y + 1 != _player.Y)
+                                {
                                     newFireLocations.Add(currZone.Layout.GetCell(enemy.X, enemy.Y + 1));
+                                }
                             }
                         }
                         foreach (var cell in newFireLocations)
