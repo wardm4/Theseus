@@ -15,6 +15,7 @@ namespace Theseus
         public Cell Exit { get; set; }
         public Cell ItemLocation { get; set; }
         private RandomRoomsMapCreationStrategy<Map> mapCreationStrategy;
+        public int Time { get; set; }
 
         public Zone(int currID)
         {
@@ -32,6 +33,7 @@ namespace Theseus
             Exit = GetRandomEmptyCell();
             Item = "None";
             ItemLocation = GetRandomEmptyCell();
+            Time = 0;
         }
 
         public Cell GetRandomEmptyCell()
