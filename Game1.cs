@@ -312,27 +312,30 @@ namespace Theseus
                         addMinotaurEnemy = false;
                     }
                     
-                    if (elapsedTime % 20 == 0)
+                    if (Global.Random.Next(20) == 5)
                     {
                         List<Cell> newFireLocations = new List<Cell>();
                         foreach (var enemy in Global.EnemyList)
                         {
                             if (enemy.Name == "Dragon" && currZone.Layout.IsInFov(enemy.X, enemy.Y))
                             {
-                                if (currZone.Layout.GetCell(enemy.X - 1, enemy.Y).IsWalkable && (enemy.X - 1 != _player.X || enemy.Y != _player.Y))
+                                if (currZone.Layout.GetCell(enemy.X - 1, enemy.Y).IsWalkable && (enemy.X - 1 != _player.X || enemy.Y != _player.Y)
+                                    && !Global.CombatManager.IsEnemyAt(enemy.X - 1, enemy.Y))
                                 { 
                                     newFireLocations.Add(currZone.Layout.GetCell(enemy.X - 1, enemy.Y)); 
                                 }
-                                else if (currZone.Layout.GetCell(enemy.X + 1, enemy.Y).IsWalkable && (enemy.X + 1 != _player.X || enemy.Y != _player.Y))
+                                else if (currZone.Layout.GetCell(enemy.X + 1, enemy.Y).IsWalkable && (enemy.X + 1 != _player.X || enemy.Y != _player.Y)
+                                    && !Global.CombatManager.IsEnemyAt(enemy.X + 1, enemy.Y))
                                 { 
                                     newFireLocations.Add(currZone.Layout.GetCell(enemy.X + 1, enemy.Y)); 
                                 }
                                 else if (currZone.Layout.GetCell(enemy.X, enemy.Y - 1).IsWalkable
-                                    && (enemy.X != _player.X || enemy.Y - 1 != _player.Y))
+                                    && (enemy.X != _player.X || enemy.Y - 1 != _player.Y)
+                                    && !Global.CombatManager.IsEnemyAt(enemy.X, enemy.Y - 1))
                                 {
                                     newFireLocations.Add(currZone.Layout.GetCell(enemy.X, enemy.Y - 1));
                                 }
-                                else if (enemy.X != _player.X || enemy.Y + 1 != _player.Y)
+                                else if ((enemy.X != _player.X || enemy.Y + 1 != _player.Y) && (!Global.CombatManager.IsEnemyAt(enemy.X, enemy.Y + 1)))
                                 {
                                     newFireLocations.Add(currZone.Layout.GetCell(enemy.X, enemy.Y + 1));
                                 }
@@ -735,7 +738,7 @@ namespace Theseus
                     {
                         X = Place.X,
                         Y = Place.Y,
-                        Health = 5,
+                        Health = 7,
                         Damage = 1,
                         Name = "Dragon",
                         isStunned = false
@@ -806,6 +809,9 @@ namespace Theseus
                         case "Snake":
                             Global.XPTally += 4;
                             break;
+                        case "Minotaur":
+                            Global.isMinotaurAlive = false;
+                            break;
                     }
                 }
                 else
@@ -828,19 +834,19 @@ namespace Theseus
                         _player.Level = 2;
                         _player.Damage = 2;
                         break;
-                    case 13:
+                    case 18:
                         _player.Level = 3;
                         _player.Damage = 3;
                         break;
-                    case 22:
+                    case 28:
                         _player.Level = 4;
                         _player.Damage = 4;
                         break;
-                    case 40:
+                    case 45:
                         _player.Level = 5;
                         _player.Damage = 5;
                         break;
-                    case 65:
+                    case 70:
                         _player.Level = 6;
                         _player.Damage = 8;
                         break;
