@@ -26,7 +26,7 @@ namespace Theseus
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //GUI and Level Display
+        //GUI and Level Tiles
         private Texture2D _floor;
         private Texture2D floor1;
         private Texture2D floor2;
@@ -94,11 +94,9 @@ namespace Theseus
         private Player _player;
         private InputState _inputState;
         public int elapsedTime;
-        //private SoundEffect swordswipe;
         public int deadTime;
         public int winTime;
         private Zone currZone;
-        //private Song song;
         public bool speed;
         int speedCounter;
         private bool addMinotaurEnemy;
@@ -144,18 +142,22 @@ namespace Theseus
 
         protected override void LoadContent()
         {
-            //Initializes Some Values
+            //Initializes More Values
             elapsedTime = 0;
             deadTime = 0;
             winTime = 0;
             speedCounter = 0;
             addMinotaurEnemy = false;
+
+            //Makes item pool
             Global.EnemyList.Clear();
             Global.ItemList.Clear();
             Global.ItemList.Add("Elixir");
             Global.ItemList.Add("Pandora");
             Global.ItemList.Add("Boots");
             Global.ItemList.Add("Scroll");
+            Global.ItemList.Add("Strength");
+            Global.ItemList.Add("Vision");
             Global.ItemList.Add("Mjolnir");
             Global.ItemList.Add("Bident");
 
@@ -222,7 +224,8 @@ namespace Theseus
             losescreen = Content.Load<Texture2D>("losescreen");
             winscreen = Content.Load<Texture2D>("winscreen");
             portal = Content.Load<Texture2D>("exit");
-            //song = this.Content.Load<Song>("gamesoundtrack");
+
+            //Generate and place player, items, and enemies in the level
             Cell startingCell = currZone.GetRandomEmptyCell();
             Global.Camera.CenterOn(startingCell);
             _player = new Player
@@ -240,13 +243,12 @@ namespace Theseus
                 isLeft = true,
                 Name = "Hilby"
             };
+
             AddZoneEnemies(currZone);
-            // AddItem(currZone);
+            AddItem(currZone);
             UpdatePlayerFieldOfView();
             Global.GameState = GameStates.PlayerTurn;
             Global.CombatManager = new CombatManager(_player);
-            //swordswipe = this.Content.Load<SoundEffect>("sword1");
-            //Global.CombatManager.effect = swordswipe;
             speed = false;
         }
 
@@ -267,13 +269,14 @@ namespace Theseus
         protected override void Update(GameTime gameTime)
         {
             Global.XPTally = 0;
+
+            //Press Esc to quit
             if (_inputState.IsExitGame(PlayerIndex.One))
             {
                 Exit();
             }
             else
             {
-                //MediaPlayer.Play(song);
                 if ((Global.GameState == GameStates.PlayerTurn && _player.HandleInput(_inputState, currZone.Layout)) || _inputState.IsAction(PlayerIndex.One))
                 {
                     UpdatePlayerFieldOfView();
@@ -426,6 +429,21 @@ namespace Theseus
                             UpdatePlayerFieldOfView();
                             _player.Item = "None";
                             break;
+                        case "Strength":
+                            _player.Damage += 2;
+                            _player.Item = "None";
+                            break;
+                        case "Vision":
+                            for (int i=0; i< Global.MapWidth; i++) 
+                            {
+                                for (int j = 0; j < Global.MapHeight; j++) 
+                                {
+                                    Cell tmpCell = currZone.Layout.GetCell(i, j);
+                                    currZone.Layout.SetCellProperties(i, j, true, tmpCell.IsWalkable, true);
+                                }
+                            }
+                            _player.Item = "None";
+                            break;
                     }
                     elapsedTime++;
                     currZone.Time++;
@@ -494,7 +512,6 @@ namespace Theseus
                 }
             }
 
-            Console.WriteLine("Number of turns: " + currZone.Time);
             IterateXP(Global.XPTally);
             base.Update(gameTime);
         }
@@ -649,6 +666,7 @@ namespace Theseus
                         AddEnemyAt("Dragon", enemyCell);
                     }
                     break;
+
                 case 4:
                 case 5:
                     Global.EnemyList.TrimExcess();
@@ -671,6 +689,7 @@ namespace Theseus
                         AddEnemyAt("Snake", enemyCell);
                     }
                         break;
+
                 case 6:
                     Global.EnemyList.TrimExcess();
                     Cell tmpCell = zone.GetEnemyCell(_player.X, _player.Y);
@@ -867,13 +886,17 @@ namespace Theseus
             {
                 case "None": _itemImage = floor1;
                     break;
-                case "Elixir": _itemImage = elixir;
+                case "Elixir":
+                case "Strength": 
+                    _itemImage = elixir;
                     break;
                 case "Pandora": _itemImage = pandora;
                     break;
                 case "Boots": _itemImage = boots;
                     break;
-                case "Scroll": _itemImage = scroll;
+                case "Scroll":
+                case "Vision":
+                    _itemImage = scroll;
                     break;
                 case "Mjolnir": _itemImage = mjolnir;
                     break;
@@ -887,13 +910,17 @@ namespace Theseus
             {
                 case "None": _spaceItem = spaceEmpty;
                     break;
-                case "Elixir": _spaceItem = spaceElixir;
+                case "Elixir":
+                case "Strength": 
+                    _spaceItem = spaceElixir;
                     break;
                 case "Pandora": _spaceItem = spacePandora;
                     break;
                 case "Boots": _spaceItem = spaceBoots;
                     break;
-                case "Scroll": _spaceItem = spaceScroll;
+                case "Scroll":
+                case "Vision":
+                    _spaceItem = spaceScroll;
                     break;
             }
 
@@ -923,7 +950,9 @@ namespace Theseus
                 case "Elixir":
                 case "Pandora":
                 case "Boots":
+                case "Strength":
                 case "Scroll":
+                case "Vision":
                     string swap1 = _player.Item;
                     _player.Item = currZone.Item;
                     currZone.Item = swap1;
